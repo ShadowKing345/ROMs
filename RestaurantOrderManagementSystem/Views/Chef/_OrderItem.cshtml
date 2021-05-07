@@ -1,0 +1,52 @@
+@using RestaurantOrderManagementSystem.Models.RelationshipIntermidiary
+@model RestaurantOrderManagementSystem.Controllers.ChefOrderViewModel
+
+<div class="ChefOrder Div" id="Order_@(Model.Cart.Id)">
+    <div class="SubDiv" id="CartOrder-Header">
+        <div id="ChefOrder-Table">Table: @Model.Table.Name</div>
+        <div id="ChefOrder-TableCartDivider" class="Divider"></div>
+        <div id="ChefOrder-CartId">Order ID: @Model.Cart.Id</div>
+    </div>
+    <div id="ChefOrder-MenuItem" class="SubDiv">
+        @foreach (MenuItemOrder menuItem in Model.MenuItemOrders)
+        {
+            <div class="MenuItemOrder" id="MenuItemOrder_@(menuItem.Id)">
+                <img id="MenuItemOrder-Image" src="/@(menuItem.MenuItem.ImagePath ?? "favicon.ico")" alt=""/>
+                <div id="MenuItemOrder-Name">@menuItem.MenuItem.Name</div>
+                <div id="MenuItemOrder-NameOptionsDivider" class="Divider"></div>
+                <div id="MenuItemOrder-Options">
+                    @foreach (MenuItemOptionSet set in menuItem.ValueSets)
+                    {
+                        <div class="MenuItemOption">
+                            <div>@menuItem.MenuItemOptions.Find(x => x.Id == set.MenuItemOptionId)?.Name:</div>
+                            @foreach (string index in set.Indexes.Split(";"))
+                            {
+                                if(string.IsNullOrEmpty(index)){continue;}
+                                <div class="KVPair @(menuItem.IsReady ? "checked" : "")">
+                                    <div class="Key">@index</div>
+                                    <div class="Checkbox TextBox Value">
+                                        <input class="Checkbox-Input" type="checkbox" onchange="this.parentElement.parentElement.classList.toggle('checked');ToggleCheckbox(this)">
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+                <div id="MenuItemOrder-Actions">
+                    <input class="Button OkayButton" type="button" value="Mark Complete" onclick="MarkMenuItemComplete('@Model.Cart.Id', '@menuItem.Id')"/>
+                </div>
+            </div>
+        }
+    </div>
+    <div id="ChefOrder-MenuItemAdditionalDetailsDivider" class="Divider"></div>
+    <div id="ChefOrder-AdditionalDetails" class="SubDiv">
+        <div class="Label">
+            Additional Details:
+        </div>
+        <div class="TextBox">@(Model.Cart.AdditionalDetails ?? "No Additional Details")</div>
+    </div>
+    <div id="ChefOrder-AdditionalDetailsActionsDivider" class="Divider"></div>
+    <div id="ChefOrder-Actions">
+        <input class="Button OkayButton" type="button" value="Mark Complete" onclick="MarkOrderComplete('@Model.Cart.Id')"/>
+    </div>
+</div>

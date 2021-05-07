@@ -1,0 +1,17 @@
+@model RestaurantOrderManagementSystem.Models.ViewModels.Order.CartViewModel
+
+<div>
+    <link rel="stylesheet" href="~/css/CartForm.css"/>
+    <h3>Create New Order</h3>
+    <form asp-controller="Orders" asp-action="CreateCart" method="post">
+        <fieldset>
+            <partial name="_CartForm" model="@Model"/>
+        </fieldset>
+        <br/>
+        <div class="Div">
+            <a class="LinkButton OkayButton Button" href="javascript:$('form').submit()">Create new Order</a>
+            <a class="LinkButton ErrorButton Button" asp-controller="Orders" asp-action="OrderDashboard">Back</a>
+        </div>
+    </form>
+    <script src="~/js/CartForm.js"></script>
+</div>

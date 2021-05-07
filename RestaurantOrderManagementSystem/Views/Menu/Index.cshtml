@@ -1,0 +1,16 @@
+@model IEnumerable<RestaurantOrderManagementSystem.Models.Menu.MenuItem>
+
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<div>
+    <link rel="stylesheet" href="~/css/MenuItem/BigMenuItem.css">
+
+    <div>
+        @foreach (var item in Model)
+        {
+            <partial name="_MenuItemWidget" model="item"/>
+        }
+    </div>
+</div>

@@ -1,0 +1,214 @@
+@model RestaurantOrderManagementSystem.Controllers.UserViewModel
+
+<div id="Form-Div">
+    <style>
+        #Form-Div{
+            display: grid;
+            grid-template-areas: 
+                "Names"
+                "DOB"
+                "WorkInfo"
+                "Credentials"
+                "Roles";
+                
+            grid-row-gap: 30px;
+            
+            width: max-content;
+        }
+        
+        #Form-Names-Div {
+            grid-area: Names;
+        }
+        
+        #Form-DOB-Div {
+            grid-area: DOB;
+        }
+        
+        #Form-WorkInfo-Div {
+            grid-area: WorkInfo;
+        }
+        
+        #Form-Credentials-Div {
+            grid-area: Credentials;
+        }
+        
+        #Form-Roles-Div {
+            grid-area: Roles;
+            position: relative;
+        }
+        
+        .labelInput {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        #Form-Roles-Div-Div{
+            display: flex;
+        
+            height: 24px;
+            
+            line-height: 24px;
+        }
+        
+        #Form-Roles-Div-Div > div:last-child {
+            display: inline-block;
+            position: relative;
+            
+            height: 100%;
+            width: 24px;
+        }
+        
+        #Form-Roles-Select.Dropdown-Menu {
+            position: absolute;
+            
+            top: 0;
+            left: 50%;
+        
+            transform: translateX(-50%);
+        }
+                
+        .selectOption:not(.show){
+            display: none;
+            color: white;
+        }
+        
+        .roleDiv {
+            display: inline-grid;
+            
+            grid-template-columns: max-content 24px;
+            
+            width: max-content;
+            height: 100%;
+            
+            font-size: 18px;
+            vertical-align: middle;
+            
+            background-color: var(--Background-5);
+            
+            border-radius: 10px;
+        }
+        
+        .roleDiv > div {
+            display: block;
+            width: max-content;
+            height: max-content;
+            position: relative;
+            
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50%, -50%, 0);
+        }
+    </style>
+    @Html.AntiForgeryToken()
+    <div id="Form-Names-Div" class="Div">
+        <div id="Form-FName-Div" class="labelInput">
+            <label asp-for="User.FirstName">First Name:</label>
+            <input class="TextBox Input" asp-for="User.FirstName"/>
+        </div>
+        <div id="Form-MName-Div" class="labelInput">
+            <label asp-for="User.MiddleNames">Middle Names:</label>
+            <input class="TextBox Input" asp-for="User.MiddleNames"/>
+        </div>
+        <div id="Form-LName-Div" class="labelInput">
+            <label asp-for="User.LastName">Surname:</label>
+            <input class="TextBox Input" asp-for="User.LastName"/>
+        </div>
+    </div>
+    <div id="Form-DOB-Div" class="labelInput Div Width100">
+        <label asp-for="User.DOB">Date of Birth:</label>
+        <input class="TextBox Input" asp-for="User.DOB"/>
+    </div>
+    <div id="Form-WorkInfo-Div" class="Div">
+        <div id="Form-Id-Div" class="labelInput">
+            <label asp-for="User.IDNumber">ID Number:</label>
+            <input class="TextBox Input" asp-for="User.IDNumber"/>
+        </div>
+        <div id="Form-Phone-Div" class="labelInput">
+            <label asp-for="User.PhoneNumber">Work Phone Number:</label>
+            <input class="TextBox Input" asp-for="User.PhoneNumber"/>
+        </div>
+    </div>
+    <div id="Form-Credentials-Div" class="Div">
+        <div id="Form-Username-Div" class="labelInput">
+            <label asp-for="User.UserName">Username:</label>
+            <input class="TextBox Input" asp-for="User.UserName"/>
+        </div>
+        <div id="Form-Pass-Div" class="labelInput">
+            <label asp-for="Password">Password:</label>
+            <input class="TextBox Input" asp-for="Password"/>
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div id="Form-CPass-Div" class="labelInput">
+            <label asp-for="ConfirmPassword">Confirm Password:</label>
+            <input class="TextBox Input" asp-for="ConfirmPassword"/>
+            <span asp-validation-for="ConfirmPassword"></span>
+        </div>
+    </div>
+    <div id="Form-Roles-Div" class="Div Width100">
+        <p>Roles:</p>
+        <div id="Form-Roles-Div-Div" class="Dropdown">
+            <div id="Form-Roles-Select" class="Dropdown-Menu collapse CloseOnOutsideClick Div">
+                @foreach (string role in Model.Roles)
+                {
+                    <div class="selectOption @(Model.AccountRoles.Contains(role) ? "" : "show")" onclick="AddRoleToUser(this)">@role</div>
+                }
+            </div>
+            @foreach (string role in Model.AccountRoles)
+            {
+                <div class="roleDiv">
+                    @role
+                    <div class="LinkSVG ErrorButton Invert" onclick="RemoveRole(this.parentElement, '@role')"><i class="bi bi-x-circle"></i></div>
+                    <input type="hidden" asp-for="AccountRoles" value="@role">
+                </div>
+            }
+            <div id="AddRoleButton" class="LinkSVG OkayButton Invert Dropdown">
+                <i class="bi bi-plus-circle"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+    const RolesSelect = document.getElementById("Form-Roles-Select");
+    const FormDiv = document.getElementById("Form-Roles-Div-Div");
+    
+    function AddRoleToUser(element) {
+        let RoleValue = element.textContent;
+        let div = document.createElement("div");
+        div.classList.add("roleDiv");
+        div.textContent = RoleValue;
+        
+        let inputDiv = document.createElement("div");
+        inputDiv.innerHTML = '<i class="bi bi-x-circle"></i>';
+        inputDiv.classList.add("LinkSVG", "ErrorButton", "Invert");
+        inputDiv.onclick = function () {
+            RemoveRole(div, RoleValue);
+        };
+        
+        let hidden = document.createElement("input");
+        hidden.type = "hidden";
+        hidden.id = hidden.name = "AccountRoles";
+        hidden.value = RoleValue;
+        
+        div.append(inputDiv, hidden);
+        FormDiv.insertBefore(div, FormDiv.children[FormDiv.children.length - 1]);
+        
+        element.classList.remove("show");
+        RolesSelect.classList.remove("show");
+    }
+    
+    function RemoveRole(element, RoleValue) {
+        element.remove();
+        let SelectorElement = Array.from(document.getElementsByClassName("selectOption")).filter(function(x) { return x.textContent === RoleValue; }).pop();
+        if (SelectorElement){
+            SelectorElement.classList.add("show");
+        }
+    }
+    
+    function OpenRoleSelectForm(event){
+        ToggleDropdown('Form-Roles-Select');
+        event.stopPropagation();
+    }
+    
+    document.getElementById("AddRoleButton").addEventListener('click', OpenRoleSelectForm);
+    
+    </script>
+</div>

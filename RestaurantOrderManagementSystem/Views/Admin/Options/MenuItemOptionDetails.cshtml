@@ -1,0 +1,101 @@
+@model RestaurantOrderManagementSystem.Models.Menu.MenuItemOption
+<div id="MenuItemOption">
+    <style>
+        #MenuItemOption {
+            display: grid;
+            
+            grid-template-areas: "Header Header" "Name Type" "Options Options" "Actions Actions";
+            
+            grid-template-columns: max-content min-content;            
+            grid-template-rows: max-content max-content max-content;
+            grid-row-gap: 10px;
+            grid-column-gap: 10px;
+        }
+        
+        #MenuItemOption_Header {
+            grid-area: Header;
+        }
+
+        #MenuItemOption_Name {
+            grid-area: Name;
+            width: 100%
+        }
+        
+        #MenuItemOption_Type {
+            grid-area: Type;
+        }
+
+        #MenuItemOption_Options {
+            grid-area: Options;
+            
+            width: 100%;
+        }
+        
+        #MenuItemOption_Options .Label {
+            display: grid;
+            grid-template-columns: auto auto;
+            background-color: var(--Background-2);
+        }
+        
+        #MenuItemOption_Options .Label > div:last-child, #MenuItemOption_Options .Value {
+            text-align: right;
+        }
+        
+        #MenuItemOption_Options .KVPair {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+        
+        #MenuItemOption_Options .KVPair:nth-child(odd){
+            background-color: var(--Background-4);
+        }
+        #MenuItemOption_Options .KVPair:nth-child(even){
+            background-color: var(--Background-5);
+        }
+        
+        #MenuItemOption_Options .Label > div, #MenuItemOption_Options .KVPair {
+            padding: 10px;
+        }
+        
+        #MenuItemOption_Actions {
+            grid-area: Actions;
+        }
+    
+    </style>
+
+    <h3 id="MenuItemOption_Header">Menu Item Options Detailed View</h3>
+    
+    <div id="MenuItemOption_Name" class="Div">
+        <div class="Label">Name:</div>
+        <div class="TextBox">@Model.Name</div>
+    </div>
+    <div id="MenuItemOption_Type" class="Div">
+        <div class="Label">Type:</div>
+        <div class="TextBox">@Model.Type</div>
+    </div>
+
+    <div class="Div" id="MenuItemOption_Options">
+        <div class="Label">
+            <div>Option</div>
+            <div>Price</div>
+        </div>
+        <div class="KVDiv">
+            @foreach (KeyValuePair<string, string> pair in Model.GetValuesPairs())
+            {
+                <div class="KVPair">
+                    <div class="Key">@pair.Key</div>
+                    <div class="Value">@pair.Value KES</div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="Div" id="MenuItemOption_Actions">
+        <form asp-controller="MenuItem" asp-action="DeleteMenuItemOption" asp-route-id="@Model.Id" id="deleteForm@(Model.Id)" method="post">
+            <a class="LinkButton Button OkayButton" asp-controller="Admin" asp-action="OptionsDashboard">Back</a>
+            <a class="LinkButton Button InfoButton" asp-controller="Admin" asp-action="EditMenuItemOption" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewData["returnUrl"]">Edit</a>
+            <a class="LinkButton Button ErrorButton" href="javascript:$('#deleteForm@(Model.Id)').submit();">Delete</a>
+            @Html.AntiForgeryToken()
+        </form>
+    </div>
+</div>
+

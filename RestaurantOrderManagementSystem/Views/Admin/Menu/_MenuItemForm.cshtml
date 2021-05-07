@@ -1,0 +1,126 @@
+@model RestaurantOrderManagementSystem.Controllers.MenuViewModel
+@{
+    string options = "";
+    string optionsIds = "";
+    foreach (MenuItemOption option in Model.AllMenuItemOptions)
+    {
+        optionsIds += option.Id + ";";
+        options += option.Name + ";";
+    }
+}
+
+<div id="Form-Div">
+    <link rel="stylesheet" href="~/css/MenuItemFormStyle.css"/>
+    @Html.AntiForgeryToken()
+    <div id="Form-Name-Div" class="SideDiv">
+        <label class="Label" asp-for="MenuItem.Name">Name:</label>
+        <input class="TextBox Input" asp-for="MenuItem.Name" placeholder="Name of Item."/>
+    </div>
+    <div id="Form-ShortDescription-Div"  class="SideDiv">
+        <label class="Label" asp-for="MenuItem.ShortDescription">Breif Description:</label>
+        <textarea class="TextBox Input" asp-for="MenuItem.ShortDescription" placeholder="A brief description of the product."></textarea>
+    </div>
+    <div id="Form-LongDescription-Div"  class="MainDiv">
+        <label class="Label" asp-for="MenuItem.LongDescription">Description:</label>
+        <textarea class="TextBox Input" asp-for="MenuItem.LongDescription" placeholder="The description of the product." rows="4"></textarea>
+    </div>
+    <div id="Form-Quantity-Div"  class="SideDiv">
+        <label class="Label" asp-for="MenuItem.Quantity">Quantity:</label>
+        <input class="TextBox Input" asp-for="MenuItem.Quantity" placeholder="Infinite"/>
+    </div>
+    <div id="Form-Price-Div"  class="SideDiv">
+        <label class="Label" asp-for="MenuItem.Price">Price:</label>
+        <input class="TextBox Input" asp-for="MenuItem.Price" placeholder="Price of product."/>
+    </div>
+    <div id="Form-Hidden-Div"  class="SideDiv">
+        <label class="Label" asp-for="MenuItem.IsHidden">Hidden?</label>
+        <div class="Checkbox">
+            <input class="Checkbox-Input" onchange="ToggleCheckbox(this)" asp-for="MenuItem.IsHidden"/>
+        </div>
+    </div>
+    <div id="Form-Image-Div">
+        <input id="image-input" type="file" asp-for="Image" accept="image/*" onchange="imagePreview(this)"/>
+        <img id="image-preview" src="@(Model.MenuItem?.ImagePath != null ? $"/{Model.MenuItem.ImagePath}" : "/favicon.ico")" width="150px" alt=""/>
+        <input type="hidden" name="MenuItem.ImagePath" value="@Model.MenuItem?.ImagePath">
+    </div>
+    <div id="Form-Categories-Div" class="MainDiv">
+        <div>Categories:</div>
+        <div>
+            @foreach (Category category in Model.Categories)
+            {
+                <div>
+                    <img width="16px" height="16px" alt="" src="/@(category.ImagePath ?? "favicon.ico")"/>
+                    <label>@category.Name</label>
+                    <div class="Checkbox">
+                        <input class="Checkbox-Input" name="CategoryIds" onchange="ToggleCheckbox(this)" value="@category.Id" type="checkbox" checked="@Model.MenuItem?.MenuItemCategories?.ToList().Any(mic => mic.Category.Name == category.Name)"/>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="Form-Options-Div" class="MainDiv">
+        <div>Extras:</div>
+        <table id="Options-List">
+            @foreach (MenuItemOption option in Model.MenuItemOptions)
+            {
+                <tr>
+                    <td>
+                        <select name="options" class="InputSelect Input">
+                            @foreach (MenuItemOption option2 in Model.MenuItemOptions)
+                            {
+                                if (option2 == option)
+                                {
+                                    <option value="@(option2.Id)" selected>@option2.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@(option2.Id)">@option2.Name</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <div class="XButton" onclick="this.parentElement.parentElement.remove()"></div>
+                    </td>
+                </tr>
+            }
+        </table>
+        <input class="Button OkayButton" type="button" id="Form-Options-Div-Button" onclick="addOption()" value="Add New Option">
+    </div>
+
+    <script src="~/js/formUtils.js"></script>
+    <script>
+    let options_list_div = document.getElementById("Options-List");
+    let options = "@options".split(";");
+    let options_ids = "@optionsIds".split(";");
+    function addOption() {
+        let row = document.createElement("tr");
+        
+        let td1 = document.createElement("td");
+        let td2 = document.createElement("td");
+        row.appendChild(td1);
+        row.appendChild(td2);
+        
+        let select = document.createElement("select");
+        select.name = "options";
+        select.classList.add("InputSelect", "Input");
+        for (let i = 0; i < options.length - 1; i++){
+            let option = document.createElement("option");
+            option.value = options_ids[i];
+            option.textContent = options[i];
+            select.appendChild(option)    
+        }
+        td1.appendChild(select);
+        
+        let button = document.createElement("div");
+        button.classList.add("XButton");
+        button.onclick = function () { row.remove(); };
+        td2.appendChild(button);
+        
+        options_list_div.appendChild(row);
+    }
+    
+    document.getElementById("Form-Options-Div-Button").disabled = @(string.IsNullOrEmpty(options) ? "true" : "false");
+    </script>
+</div>

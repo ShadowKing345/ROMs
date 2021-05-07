@@ -1,0 +1,211 @@
+.Div {
+    width: 100%;
+}
+
+.TableEntry {
+    background-color: var(--Background-4);
+    border: 1px solid var(--Background-1);
+}
+
+.TableHeader {
+    background-color: var(--Background-2);
+
+    height: 40px;
+    line-height: 32px;
+}
+
+.TableHeader, .TableSubHeading {
+    border-bottom: 1px solid var(--Background-1);
+
+    display: grid;
+
+    grid-template-columns: min-content auto max-content max-content;
+    grid-column-gap: 30px;
+
+    white-space: nowrap;
+    
+    padding: 3px;
+    vertical-align: middle;
+}
+
+.TableSubHeading {
+    background-color: var(--Background-5);
+
+    height: 30px;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 3px;
+}
+
+.TableProperties {
+    display: grid;
+    
+    grid-template-columns: auto auto;
+    grid-template-rows: max-content max-content max-content;
+    
+    height: max-content;
+}
+
+.Dropdown {
+    position: relative;
+}
+
+.Dropdown .Dropdown-Menu {
+    background-color: var(--Background-1);
+
+    position: absolute;
+    
+    width: max-content;
+    height: max-content;
+    
+    padding: 5px;
+    
+    left: -200%;
+}
+
+.TableHeaderActions .LinkButton {
+    width: 100px;
+    display: block;
+}
+
+.Action-Link {
+    color: var(--Foreground);
+}
+
+.Action-Link:hover .bi-plus {
+    color: var(--Ok-background);
+}
+.Action-Link:hover .bi-trash-fill {
+    color: var(--Error-background);
+}
+.Action-Link:hover .bi-pencil-square {
+    color: var(--Info-background);
+}
+
+.TableHeader .Action-Link {
+    width: 32px;
+    height: 32px;
+
+    font-size: 25px;
+    
+    display: inline-block;
+}
+
+.TableSubHeading .Action-Link {
+    width: 20px;
+    height: 20px;
+
+    font-size: 20px;
+    
+    display: inline-block;
+}
+
+#Overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    
+    background-color: #00000050;
+}
+
+#TableDashboardForm {
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    top: 50%;
+    left: 50%;
+    
+    transform: translate3d(-50%, -50%, 0);
+}
+
+/*Forms*/
+#TableDashboardForm {
+    box-sizing: border-box;
+    width: max-content;
+    height: min-content;
+
+    padding: 20px;
+    border: 3px solid var(--Background-1);
+
+    background: var(--Background-2);
+}
+
+label {
+    display: inline-block;
+}
+
+#Form-Div {
+    display: grid;
+    grid-template-areas: 
+            "NameL Name Name Name"
+            "SeatsL Seats Seats Seats"
+            "WidthL Width HeightL Height"
+            "XL X YL Y"
+            "StyleL Style Style Style";
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+}
+
+.Form-Label-Div {
+    display: grid;
+    grid-template-columns: max-content auto;
+    grid-column-gap: 5px;
+}
+
+label#NameL {
+    grid-area: NameL;
+}
+
+input#Name {
+    grid-area: Name;
+}
+
+label#SeatsL {
+    grid-area: SeatsL;
+}
+
+input#Seats {
+    grid-area: Seats;
+}
+
+label#WidthL {
+    grid-area: WidthL;
+}
+
+input#Width {
+    grid-area: Width;
+}
+
+label#HeightL {
+    grid-area: HeightL;
+}
+
+input#Height {
+    grid-area: Height;
+}
+
+label#XL {
+    grid-area: XL;
+}
+
+input#X {
+    grid-area: X;
+}
+
+label#YL {
+    grid-area: YL;
+}
+
+input#Y {
+    grid-area: Y;
+}
+
+label#StyleL {
+    grid-area: StyleL;
+}
+
+input#Style {
+    grid-area: Style;
+}

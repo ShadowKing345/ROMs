@@ -1,0 +1,48 @@
+@using RestaurantOrderManagementSystem.Models.ViewModels.Order
+@model RestaurantOrderManagementSystem.Models.ViewModels.Order.CartViewModel
+
+<div>
+    <link rel="stylesheet" href="~/css/CartForm.css"/>
+    @Html.AntiForgeryToken()
+    <div id="CartForm">
+        @if (Model.Cart != null){
+            <input type="hidden" asp-for="Cart.WaitstaffId" value="@(Model.Cart.WaitstaffId)">
+            <input type="hidden" asp-for="Cart.CreationTimeStamp" value="@(Model.Cart.CreationTimeStamp)">
+            <input type="hidden" asp-for="Cart.CompletionTimeStamp" value="@(Model.Cart.CompletionTimeStamp)">
+            <input type="hidden" asp-for="Cart.IsComplete" value="@(Model.Cart.IsComplete)">
+        }
+        <div id="Form-AdditionalDetails-Div" class="Div">
+            <label class="Label" asp-for="Cart.AdditionalDetails">Addition Details:</label>
+            <textarea class="TextBox Input Width100" asp-for="Cart.AdditionalDetails"></textarea>
+        </div>
+        <div id="Form-Tables-Div" class="Div Width100">
+            <label class="Label" asp-for="Cart.TableId">Table:</label>
+            <select class="TextBox Input Width100" asp-for="Cart.TableId">
+                @foreach (Table table in Model.Tables)
+                {
+                    <option value="@(table.Id)">@table.Name</option>
+                }
+            </select>
+        </div>
+        <div class="Div Width100">
+            <div class="Label">Menu Items:</div>
+            <div id="MenuItemDiv">
+                @foreach (MenuItemOrderInputForm form in Model.MenuItemOrderInputForms)
+                {
+                    <div class="MenuItemEntry">
+                        <img src="/@(form.MenuItem.ImagePath ?? "favicon.ico")" alt=""/>
+                        <div>@form.MenuItem.Name</div>
+                        <div class="XButton" onclick="this.parentElement.remove()"></div>
+                        <input type="hidden" asp-for="MenuItemOrderInputFormStrings" value="@Html.Raw(Json.Serialize(form))"/>
+                    </div>
+                }
+            </div>
+            <div>
+                <input class="Button OkayButton" type="button" value="Add Menu Item" onclick="OpenMenuItemPanel()"/>
+            </div>
+        </div>
+    </div>
+    <div id="MenuItemPanel" class="hidden"></div>
+    <div id="MenuItemOptionsPanel" class="hidden"></div>
+    <div id="Overlay" class="hidden"></div>
+</div>

@@ -1,0 +1,20 @@
+@model RestaurantOrderManagementSystem.Controllers.UserViewModel
+
+@{
+    ViewData["Title"] = "Admin - Create User";
+}
+
+
+<div>
+    <h2>New User</h2>
+    <form asp-controller="Accounts" asp-action="CreateUser" method="post">
+        <fieldset>
+            <partial name="User/_ApplicationUserForm" model="@Model"/>
+        </fieldset>
+        <br/>
+        <div class="Div">
+            <a class="LinkButton Button OkayButton" href="javascript:$('form').submit()">Create New User</a>
+            <a class="LinkButton Button ErrorButton" asp-controller="Accounts" asp-action="UserDashboard">Back</a>
+        </div>
+    </form>
+</div>

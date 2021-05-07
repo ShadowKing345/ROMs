@@ -1,0 +1,20 @@
+@model RestaurantOrderManagementSystem.Models.ViewModels.Waitstaff.MenuItemViewModel
+
+<table class="Table">
+    <tr class="TableHeader">
+        <th class="Column_Image"></th>
+        <th class="Column_Name">Name</th>
+        <th class="Column">Quantity</th>
+        <th class="Column">Price</th>
+    </tr>
+    @foreach (MenuItem item in Model.MenuItems)
+    {
+        <tr onclick="OpenMenuItemOptionPanelFromSidePanel('@item.Id', '@Model.CartId')">
+            <td class="Column_Image"><img alt="" src="/@(item.ImagePath ?? "favicon.ico")"/></td>
+            <td class="Column_Name">@item.Name</td>
+            <td class="Column">@item.Quantity</td>
+            <td class="Column">@item.Price KES</td>
+        </tr>
+    }
+</table>
+<div class="XButton CloseButton" onclick="CloseEveryForm()"></div>

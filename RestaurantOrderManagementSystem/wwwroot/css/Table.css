@@ -1,0 +1,63 @@
+.Table {
+    width: 100%;
+    white-space: nowrap;
+}
+
+.Table tbody {
+    background-color: var(--Background-3);
+}
+
+.Table .TableHeaders{
+    background-color: var(--Background-2);
+}
+
+.Table tr {
+    height: 42px;
+    line-height: 32px;
+    vertical-align: middle;
+}
+
+.Table td, .Table th {
+    padding: 5px 10px;
+}
+
+.Table th, .Table td {
+    border: 1px solid var(--Background-1);
+}
+
+.Table tr:nth-child(odd):not(.TableHeaders) {
+    background-color: var(--Background-4);
+}
+
+.Table tr:nth-child(even) {
+    background-color: var(--Background-5);
+}
+
+.Table .Column_Image {
+    min-width: 42px;
+    min-height: 42px;
+}
+
+.Table .Column_Image > img{
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+}
+
+.Table .Column_Name {
+    width: 98%;
+}
+
+.Table form {
+    display: inline-block;
+}
+
+/*The button*/
+.LinkButton {
+    margin-top: 10px;
+}
+
+.LinkSVG {
+    width: 32px;
+    height: 32px;
+}

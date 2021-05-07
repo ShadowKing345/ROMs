@@ -1,0 +1,71 @@
+@model RestaurantOrderManagementSystem.Controllers.MenuViewModel
+
+<div id="Div">
+    <link rel="stylesheet" href="~/css/MenuItemDetailsStyle.css"/>
+    <div id="Name-Div" class="SideDiv">
+        <div class="Label">Name:</div>
+        <div class="TextBox">@Model.MenuItem.Name</div>
+    </div>
+    <div id="ShortDescription-Div" class="SideDiv">
+        <div class="Label">Short Description:</div>
+        <div class="TextBox">@Model.MenuItem.ShortDescription</div>
+    </div>
+    <div id="LongDescription-Div" class="MainDiv">
+        <div class="Label">Description:</div>
+        <div class="TextBox">@Model.MenuItem.LongDescription</div>
+    </div>
+    <div id="Quantity-Div" class="MainDiv Height100">
+        <div class="Label">Amount Remaining:</div>
+        <div class="TextBox">@((object) Model.MenuItem.Quantity ?? "")</div>
+    </div>
+    <div id="Price-Div" class="SideDiv Width100">
+        <div class="Label">Price:</div>
+        <div class="TextBox">@Model.MenuItem.Price KES</div>
+
+    </div>
+    <div id="Image-Div">
+        <img id="Image" src="@(Model.MenuItem?.ImagePath != null ? $"/{Model.MenuItem.ImagePath}" : "/favicon.ico")" alt=""/>
+    </div>
+    <div id="Categories-Div" class="MainDiv">
+        <div class="Label">Categories:</div>
+        <table class="TextBox">
+            <tr>
+                <th >Image:</th>
+                <th>Name:</th>
+            </tr>
+            @foreach (Category category in Model.Categories)
+            {
+                <tr>
+                    <td><img alt="" src="/@(category.ImagePath ?? "favicon.ico")"/></td>
+                    <td><label>@category.Name</label></td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div id="Options-Div" class="MainDiv Width100">
+        <div class="Label">Extras:</div>
+        <div class="TextBox">
+            @foreach (MenuItemOption option in Model.MenuItemOptions)
+            {
+                <div class="OptionDiv">
+                    <div class="KVPair" data-toggle="collapse" data-target="#OptionValuesDiv_@(option.Id)" onclick="$(this).children('i').toggleClass('bi-chevron-up').toggleClass('bi-chevron-down')"><span>@option.Name</span><i class="bi bi-chevron-up"></i></div>
+                    <div class="Divider Width100"></div>
+                    <div class="OptionValuesDiv collapse" id="OptionValuesDiv_@(option.Id)">
+                        @foreach (KeyValuePair<string, string> pair in option.GetValuesPairs())
+                        {
+                            <div class="KVPair">
+                                <div class="Key">@pair.Key</div>
+                                <div class="Value">@pair.Value KES</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="MainDiv" style="width: max-content">
+        <a class="LinkButton OkayButton Button" asp-controller="Menu" asp-action="Index">Back</a>
+    </div>
+</div>

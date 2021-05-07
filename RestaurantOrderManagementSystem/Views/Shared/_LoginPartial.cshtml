@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RestaurantOrderManagementSystem.Accounts
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <span>Welcome @User.Identity.Name</span>
+    <form asp-controller="Accounts" asp-action="Logout" id="LogoutForm">
+        <a href="javascript:document.getElementById('LogoutForm').submit();">Logout</a>
+    </form>
+}
+else
+{
+    <a asp-controller="Accounts" asp-action="Login">Login</a>
+}

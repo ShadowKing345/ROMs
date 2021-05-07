@@ -1,0 +1,13 @@
+@model RestaurantOrderManagementSystem.Models.Menu.MenuItemOption
+
+<div>
+    <h3>Edit Menu Item Extra</h3>
+    <form asp-controller="MenuItem" asp-action="UpdateMenuItemOption" asp-route-id="@Model.Id" asp-route-returnUrl="@ViewData["returnUrl"]" method="post">
+        <partial name="Options/_MenuItemOptionForm" model="@Model"/>
+        <br/>
+        <div class="Div">
+            <a class="LinkButton Button OkayButton" href="javascript:$('form').submit()">Edit</a>
+            <a class="LinkButton Button ErrorButton" asp-controller="Admin" asp-action="OptionsDashboard">Cancel</a>
+        </div>
+    </form>
+</div>

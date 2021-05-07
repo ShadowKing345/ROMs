@@ -1,0 +1,136 @@
+.ChefOrder {
+    width: calc(100% / 3);
+    height: max-content;
+
+    display: inline-grid;
+    grid-template-areas: "Header" "MenuItems" "MenuItemAdditionalDetailsDivider" "AdditionalDetails" "AdditionalDetailsActionsDivider" "Actions";
+    grid-row-gap: 5px;
+}
+
+#CartOrder-Header {
+    grid-area: Header;
+    display: grid;
+    grid-template-areas: "TableName" "TableCartDivider" "CartId";
+}
+
+#ChefOrder-Table {
+    grid-area: TableName;
+    text-align: center;
+}
+
+#ChefOrder-TableCartDivider {
+    grid-area: TableCartDivider;
+}
+
+#ChefOrder-CartId {
+    grid-area: CartId;
+    text-align: center;
+}
+
+#ChefOrder-MenuItem {
+    grid-area: MenuItems;
+    overflow-y: scroll;
+    
+    height: 300px;
+    
+    display: grid;
+    grid-row-gap: 5px;
+}
+
+#ChefOrder-MenuItemAdditionalDetailsDivider {
+    grid-area: MenuItemAdditionalDetailsDivider;
+}
+
+#ChefOrder-AdditionalDetails {
+    grid-area: AdditionalDetails;
+}
+
+#ChefOrder-AdditionalDetailsActionsDivider {
+    grid-area: AdditionalDetailsActionsDivider;
+}
+
+#ChefOrder-Actions {
+    grid-area: Actions;
+}
+
+#ChefOrder-Actions > * {
+    float: right;
+}
+
+/* MenuItem Orders */
+
+.MenuItemOrder {
+    display: grid;
+    width: 100%;
+    height: max-content;
+
+    grid-template-areas: 
+            "Image Name"
+            "Image NameOptionsDivider"
+            "Image ..."
+            "Options Options"
+            "Actions Actions";
+
+    grid-template-columns: max-content auto;
+
+    background-color: var(--Background-4);
+    
+    padding: 3px;
+}
+
+#MenuItemOrder-Image {
+    object-fit: cover;
+
+    width: 70px;
+    height: 70px;
+
+    grid-area: Image;
+}
+
+#MenuItemOrder-Name {
+    grid-area: Name;
+    text-align: center;
+}
+
+#MenuItemOrder-NameOptionsDivider {
+    grid-area: NameOptionsDivider;
+}
+
+/*Options*/
+#MenuItemOrder-Options {
+    grid-area: Options;
+    padding: 5px;
+    
+    display: grid;
+    grid-row-gap: 3px;
+}
+
+/*MenuItemOption*/
+.MenuItemOption {
+    background-color: var(--Background-5);
+}
+
+/*KVPair*/
+#MenuItemOrder-Options .KVPair {
+    display: grid;
+    grid-template-areas: "Name Checkbox";
+    grid-template-columns: auto min-content;
+    text-decoration: line-through;
+}
+
+#MenuItemOrder-Options .KVPair .Checkbox {
+    grid-area: Checkbox;
+}
+
+#MenuItemOrder-Options .KVPair  {
+    grid-area: Name;
+}
+
+#MenuItemOrder-Options .KVPair:not(.checked) {
+    text-decoration: none;
+}
+
+/*Actions*/
+#MenuItemOrder-Actions {
+    grid-area: Actions;
+}

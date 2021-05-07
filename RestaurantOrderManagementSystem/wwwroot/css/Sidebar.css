@@ -1,0 +1,191 @@
+/*Variables*/
+:root {
+    --Sidebar-NavLink-height: 40px;
+    
+    --Sidebar-Divider-background: var(--Foreground);
+}
+
+/*Sidebar*/
+#Sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    display: grid;
+    grid-template-rows: var(--TopBar-height) auto max-content;
+    
+    transition: all 0.3s linear;
+
+    z-index: 1;
+
+    background-color: var(--Background-1);
+
+    width: 40px;
+    height: 100%;
+}
+
+#Sidebar:not(.shrunk){
+    max-width: 200px;
+    width: 200px;
+}
+
+/*Top Nav Dummy Spacer*/
+#TopNavSidebar-Spacer {
+    border-bottom: var(--TopNav-border-bottom);
+}
+
+/*Sidebar Nav*/
+#Sidebar-Nav {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+/*Sidebar Links*/
+.Sidebar-Link {
+    display: grid;
+    grid-template-areas: "Icon Text";
+    grid-template-columns: max-content auto;
+    grid-column-gap: 5px;
+    
+    height: var(--Sidebar-NavLink-height);
+    
+    padding: 3px 0;
+    
+    color: var(--Foreground);
+    
+    border-left:3px solid var(--Color3);
+    background-color: var(--Background-2);
+    
+    transition: background-color 0.1s linear, border-left-color 0.1s linear;
+}
+
+.Sidebar-Link:hover {
+    color: var(--Foreground);
+    text-decoration: none;
+    
+    background-color: var(--Background-3);
+}
+
+.Sidebar-Link:active {
+    background-color: var(--Background-4);
+    border-left-color: var(--Color4);
+}
+
+.Sidebar-Link:not(.active) {
+    border-left-color: #00000000;
+}
+
+.Sidebar-Link:not(.active):hover {
+    border-left-color: var(--Color1);
+}
+
+.Sidebar-Link:not(.active):active {
+    border-left-color: var(--Color2);
+}
+
+.Sidebar-Link > .bi {
+    grid-area: Icon;
+
+    width: 32px;
+    height: 32px;
+}
+
+.Sidebar-Link > .bi::before {
+    text-align: center;
+    vertical-align: middle;
+    
+    line-height: 32px;
+    
+    width: 100%;
+    height: 100%;
+}
+
+.Sidebar-Link > p {
+    grid-area: Text;
+    
+    vertical-align: middle;
+    line-height: calc(var(--Sidebar-NavLink-height) - 6px);
+    overflow: hidden;
+    
+    height: 100%;
+}
+
+/*Drop Down*/
+.sidebar-dropdown {
+    position: relative;
+}
+
+.sidebar-dropdown-menu {
+    background-color: var(--Background-2);
+}
+
+#Sidebar.shrunk .sidebar-dropdown-menu {
+    position: absolute;
+    
+    left: 100%;
+    top: -40px;
+    
+    width: max-content;
+    height: max-content;
+}
+
+#Sidebar.shrunk .sidebar-dropdown-menu .sidebar-divider:first-child {
+    display: none;
+}
+
+#Sidebar.shrunk .sidebar-dropdown-menu .Sidebar-Link > p {
+    margin-right: 5px;
+}
+
+/*Sidebar toggle button*/
+#Sidebar-Toggle-Button {
+    border: none;
+    
+    height: 40px;
+    width: 100%;
+
+    position: relative;
+    background-color: var(--Background-2);
+    
+    color: var(--Foreground);
+    font-size: 1.5rem;
+}
+
+#Sidebar-Toggle-Button:hover {
+    background-color: var(--Background-3);
+}
+
+#Sidebar-Toggle-Button:active {
+    background-color: var(--Background-4);
+}
+
+#Sidebar-Toggle-Button:focus {
+    outline: 0;
+}
+
+/*Sidebar Divider*/
+.sidebar-divider {
+    width: 100%;
+    height: 4px;
+
+    position: relative;
+
+}
+
+.sidebar-divider::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    top: 50%;
+    left: 0;
+
+    background-color: var(--Color2);
+
+    transform: translateY(-50%);
+}
+
+.sidebar-dropdown-menu .sidebar-divider::before {
+    background-color: var(--Color1);
+}

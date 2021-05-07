@@ -1,0 +1,112 @@
+@model RestaurantOrderManagementSystem.Models.Menu.MenuItemOption
+@{ int index = 0;}
+
+<div id="Form-Div">
+    <style>
+        #Form-Div {
+            display: grid;
+            grid-template-columns: max-content;
+            grid-template-rows: max-content max-content max-content;
+            grid-row-gap: 10px;
+        }
+    
+        .KVPairHeader {
+            background-color: var(--Background-2);
+        
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+        
+        .KVPair {
+            display: grid;
+            grid-template-columns: max-content max-content max-content;
+            grid-template-rows: 32px;
+        }
+        
+        .KVPair:nth-child(odd) {
+            background-color: var(--Background-5);
+        }
+        
+        .KVPair:nth-child(even) {
+            background-color: var(--Background-4);
+        }
+        
+        #Form-Type-Div .KVPair {
+            grid-template-columns: auto max-content;
+            background-color: transparent;
+            margin-bottom: 3px;
+        }
+    </style>
+    
+    @Html.AntiForgeryToken()
+    <div id="Form-Name" class="Div Width100">
+        <label asp-for="Name" class="Label">Name:</label>
+        <input asp-for="Name" placeholder="Title of Options" class="TextBox Input Width100"/>
+    </div>
+    <div id="Form-Values" class="Div Width100">
+        <label asp-for="Options">Options:</label>
+
+        <div id="Value-Name">
+            <div class="KVPairHeader">
+                <div>Name</div>
+                <div>Price</div>
+            </div>
+            <div id="Form-Options">
+                @foreach (KeyValuePair<string, string> pair in Model != null ? Model.GetValuesPairs() : new Dictionary<string, string>())
+                {
+                    <div class="KVPair">
+                        <input class="Key TextBox Input" name="options[@index].Key" value="@pair.Key"/>
+                        <input class="Value TextBox Input" name="options[@(index++)].Value" value="@pair.Value"/>
+                        <div class="XButton TextBox Input" onclick="this.parentElement.remove();"></div>
+                    </div>
+                }
+            </div>
+        </div>
+        <input class="OkayButton Button ShortButton" type="button" onclick="Add_Option()" value="Add"/>
+    </div>
+    <div id="Form-Type-Div" class="Div Width100">
+        <div class="Label">Type:</div>
+        <div class="TextBox">
+            @foreach (var value in Enum.GetNames(typeof(MenuItemOptionType)))
+            {
+                <div class="KVPair">
+                    <label>@value</label>
+                    <div class="Radio">
+                        <input type="radio" asp-for="Type" value="@value" onclick="_ToggleRadios()" class="Radio-Input"/>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+        const OptionsDiv = document.getElementById("Form-Options");
+        let index = @Html.Raw(index);
+        
+        function Add_Option() {
+            let kvDiv = document.createElement("div");
+            kvDiv.classList.add("KVPair");
+            
+            let keyInput = document.createElement("input");
+            keyInput.classList.add("Key", "Input", "TextBox");
+            keyInput.name = `options[${index}].Key`;
+            kvDiv.appendChild(keyInput);
+            
+            let valueInput = document.createElement("input");
+            valueInput.classList.add("Value", "Input", "TextBox");
+            valueInput.name = `options[${index++}].Value`;
+            kvDiv.appendChild(valueInput);
+            
+            let remove = document.createElement("div");
+            remove.classList.add("XButton");
+            remove.onclick = function () { kvDiv.remove(); };
+            kvDiv.appendChild(remove);
+            
+            OptionsDiv.appendChild(kvDiv);
+        }
+                
+        function _ToggleRadios(){
+            ToggleRadios(Array.from(document.getElementsByName("Type")));        
+        }
+    </script>
+</div>

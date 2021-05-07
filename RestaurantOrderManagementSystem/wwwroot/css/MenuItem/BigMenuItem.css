@@ -1,0 +1,160 @@
+/*Widget*/
+.Menu_Item_Widget {
+    margin: 5px;
+    background-color: var(--Background-2);
+    border: 3px solid var(--Background-2);
+
+
+    width: 520px;
+    height: 156px;
+    padding: 5px;
+
+    display: inline-grid;
+    grid-template-areas: 
+                "Image  ...         Quantity        Price"
+                "Image  Name        Name            Name"
+                "Image  Divider     Divider         Divider"
+                "Image  Description Description     Description"
+                "Image  Category    ...             Links";
+
+    grid-template-columns: 156px auto min-content min-content;
+    grid-template-rows: min-content auto auto auto min-content;
+
+    grid-column-gap: 5px;
+
+    position: relative;
+    box-sizing: content-box;
+    white-space: nowrap;
+}
+
+.Menu_Item_Widget:hover {
+    background-color: var(--Background-4);
+}
+
+.Menu_Item_Widget:active {
+    background-color: var(--Background-5);
+}
+
+/*Link*/
+#MenuItemWidget_Link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#Menu_Item_Widget_Image {
+    grid-area: Image;
+    object-fit: cover;
+    width: 156px;
+    height: 156px;
+}
+
+#Menu_Item_Widget_Header {
+    grid-area: Name;
+
+    text-align: center;
+
+    font-size: 2em;
+    line-height: 1;
+    font-weight: bold;
+}
+
+#Menu_Item_Widget_Divider {
+    grid-area: Divider;
+    position: relative;
+}
+
+#Menu_Item_Widget_Divider::before {
+    display: inline-block;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 50%;
+    width: 87%;
+    height: 1px;
+
+    transform: translateX(-50%);
+
+    background: white;
+}
+
+#Menu_Item_Widget_Description {
+    grid-area: Description;
+
+    text-align: center;
+    font-size: 1em;
+    
+    white-space: normal;
+    height: 2em;
+}
+
+#Menu_Item_Widget_Price {
+    grid-area: Price;
+
+    text-align: right;
+}
+
+#Menu_Item_Widget_Quantity {
+    grid-area: Quantity;
+
+    text-align: right;
+}
+
+#Menu_Item_Widget_Categories {
+    grid-area: Category;
+    height: min-content;
+}
+
+#Menu_Item_Widget_Links {
+    grid-area: Links;
+    height: min-content;
+}
+
+#Menu_Item_Widget_Links {
+    color: var(--Foreground)
+}
+
+.Menu_Item_Widget:hover #Menu_Item_Widget_Links {
+    color: var(--Ok-background)
+}
+
+.Menu_Item_Widget:active #Menu_Item_Widget_Links {
+    text-decoration: underline;
+}
+
+/*Categories*/
+.Menu_Item_Widget_Category {
+    border-radius: 5px;
+    background-color: var(--Background-5);
+
+    display: inline-grid;
+
+    height: 24px;
+    padding: 4px;
+
+    box-sizing: border-box;
+    overflow: hidden;
+    
+    grid-template-areas: "Icon Text";
+    grid-template-columns: min-content max-content;
+    grid-column-gap: 2px;
+}
+
+.Menu_Item_Widget_Category #Menu_Item_Widget_Category_Image {
+    grid-area: Icon;
+    
+    width: 16px;
+    height: 16px;
+    
+    border-radius: 3px;
+
+    object-fit: cover;
+}
+
+.Menu_Item_Widget_Category #Menu_Item_Widget_Category_Text {
+    grid-area: Text;
+    
+    font-size: 11px;
+    margin: 0;
+}

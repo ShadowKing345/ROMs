@@ -1,0 +1,78 @@
+@model RestaurantOrderManagementSystem.Controllers.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<div id="Login-Div">
+    <style>
+        #Login-Div {
+            width: max-content;
+            height: max-content;
+        }
+        
+        .input-div {
+            margin: 10px;
+        }
+        
+        .input-div:not(#RememberMe-Div) > input {
+            display: block;
+        }
+        
+        #SubmitButton {
+            background-color: var(--Background-5);
+            color: var(--Foreground);
+            border: 1px solid var(--Background-3);
+            
+            width: 100px;
+            height: 40px;
+            
+            margin: 10px;
+            
+            transition: background-color 0.1s linear, color 0.1s linear;
+            
+            box-shadow: 1px 1px var(--Background-1);
+        }
+        
+        #SubmitButton:hover {
+            background-color: var(--Ok-background);
+            color: var(--Ok-foreground);
+            
+            outline: none;
+        }
+        
+        #SubmitButton:focus {
+            outline: none;
+        }
+        
+        #RememberMe-Div > label {
+            margin-right: 5px;
+        }
+        
+        .Checkbox {
+            line-height: 100%;
+            vertical-align: middle;
+        }
+    </style>
+    <h2>Login</h2>
+    <form class="Div" asp-action="Login" asp-controller="Accounts" method="post">
+        <div class="input-div">
+            <label asp-for="Username">Username:</label>
+            <input asp-for="Username" class="TextBox Input"/>
+            @Html.ValidationMessageFor(m => m.Username)
+        </div>
+        <div class="input-div">
+            <label asp-for="Password">Password:</label>
+            <input asp-for="Password" class="Input TextBox"/>
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div class="input-div" id="RememberMe-Div">
+            <label asp-for="RememberMe">Remember Me:</label>
+            <div class="Checkbox">
+                <input asp-for="RememberMe" onchange="ToggleCheckbox(this)" class="Checkbox-Input"/>
+            </div>
+        </div>
+        <input type="submit" value="Login" id="SubmitButton"/>
+    </form>
+</div>

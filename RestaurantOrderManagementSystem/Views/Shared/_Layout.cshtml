@@ -1,0 +1,151 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RestaurantOrderManagementSystem.Accounts
+@using ApplicationIdentity = RestaurantOrderManagementSystem.Accounts.ApplicationUser
+@using System.Security.Claims
+@using RestaurantOrderManagementSystem.Controllers
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@functions
+{
+    string _controllerValue;
+    string _actionValue;
+    
+    private string IsActive(string[] controllers, string[] actions = null)
+    {
+        _controllerValue ??= Context.Request.RouteValues["controller"].ToString();
+        _actionValue ??= Context.Request.RouteValues["action"].ToString();
+        
+        if (controllers.Contains(_controllerValue))
+        {
+            if (actions == null || actions.Length <= 0)
+                return "active";
+
+            return actions.Contains(_actionValue) ? "active" : "";
+        }
+
+
+        return "";
+    }
+
+    private bool IsActiveBool(string[] controllers, string[] actions = null) => IsActive(controllers, actions) == "active";
+    
+    private bool IsInAdmin()
+    {
+        return IsActiveBool(new[] {"Admin"}) 
+               || IsActiveBool(new[] {"Table"}, new[] {"TableDashboard"})
+               || IsActiveBool(new[] {"Orders"}, new[] {"OrderDashboard"})
+               || IsActiveBool(new[] {"Accounts"});
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - RestaurantOrderManagementSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/Sidebar.css">
+    <link rel="stylesheet" href="~/css/Utils.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+</head>
+<body>
+<header id="Sidebar">
+    <div id="TopNavSidebar-Spacer"></div>
+    <nav id="Sidebar-Nav">
+        <ul class="list-unstyled">
+            <a class="Sidebar-Link @IsActive(new[] {"Home"})" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-house-fill"></i>
+                <p>Home</p>
+            </a>
+            <div class="sidebar-divider"></div>
+            <a class="Sidebar-Link @IsActive(new[] {"Menu"})" asp-controller="Menu" asp-action="Index">
+                <i class="bi bi-menu-app-fill"></i>
+                <p>Menu</p>
+            </a>
+            @if (SignInManager.IsSignedIn(User) && ((ClaimsIdentity) User.Identity).Claims.FirstOrDefault(x => x.Type == CustomClaimTypes.Permission.Admin)?.Value == "True")
+            {
+                <div class="sidebar-divider"></div>
+                <a class="Sidebar-Link @(IsInAdmin() ? "active" : "")" data-toggle="collapse" data-target="#Admin-Collapse" href="#">
+                    <i class="bi bi-gear-fill"></i>
+                    <p>Admin</p>
+                </a>
+                <li class="sidebar-dropdown">
+                    <ul class="list-unstyled sidebar-dropdown-menu collapse @(IsInAdmin() ? "show" : "")" id="Admin-Collapse">
+                        <div class="sidebar-divider"></div>
+                        <a class="Sidebar-Link @IsActive(new[] {"Admin"}, new[] {"MenuItemDashBoard"})" asp-controller="Admin" asp-action="MenuItemDashBoard">
+                            <i class="bi"></i>
+                            <p>Menu Dashboard</p>
+                        </a>
+                        <a class="Sidebar-Link @IsActive(new[] {"Admin"}, new[] {"CategoryDashBoard"})" asp-controller="Admin" asp-action="CategoryDashBoard">
+                            <i class="bi"></i>
+                            <p>Categories Dashboard</p>
+                        </a>
+                        <a class="Sidebar-Link @IsActive(new[] {"Admin"}, new[] {"OptionsDashboard"})" asp-controller="Admin" asp-action="OptionsDashboard">
+                            <i class="bi"></i>
+                            <p>Options Dashboard</p>
+                        </a>
+                        <div class="sidebar-divider"></div>
+                        <a class="Sidebar-Link @IsActive(new[] {"Table"}, new[] {"TableDashboard"})" asp-controller="Table" asp-action="TableDashboard">
+                            <i class="bi"></i>
+                            <p>Table Dashboard</p>
+                        </a>
+                        <a class="Sidebar-Link @IsActive(new[] {"Orders"}, new[] {"OrderDashboard"})" asp-controller="Orders" asp-action="OrderDashboard">
+                            <i class="bi"></i>
+                            <p>Order Dashboard</p>
+                        </a>
+                        <div class="sidebar-divider"></div>
+                        <a class="Sidebar-Link @IsActive(new[] {"Accounts"}, new[] {"UserDashboard"})" asp-controller="Accounts" asp-action="UserDashboard">
+                            <i class="bi"></i>
+                            <p>Manage Users</p>
+                        </a>
+                        <a class="Sidebar-Link @IsActive(new[] {"Accounts"}, new[] {"RoleDashboard"})" asp-controller="Accounts" asp-action="RoleDashboard">
+                            <i class="bi"></i>
+                            <p>Manage Roles</p>
+                        </a>
+                    </ul>
+                </li>
+            }
+            @if (SignInManager.IsSignedIn(User) && ((ClaimsIdentity) User.Identity).Claims.FirstOrDefault(x => x.Type == CustomClaimTypes.Permission.Chef)?.Value == "True")
+            {
+                <div class="sidebar-divider"></div>
+                <a class="Sidebar-Link @IsActive(new[] {"Chef"})" asp-controller="Chef" asp-action="Index">
+                    <i class="bi bi-receipt-cutoff"></i>
+                    <p>Orders</p>
+                </a>
+            }
+            @if (SignInManager.IsSignedIn(User) && ((ClaimsIdentity) User.Identity).Claims.FirstOrDefault(x => x.Type == CustomClaimTypes.Permission.WaitStaff)?.Value == "True")
+            {
+                <div class="sidebar-divider"></div>
+                <a class="Sidebar-Link @IsActive(new[] {"Table"}, new[] {"WaitstaffTableView"})" asp-controller="Table" asp-action="WaitstaffTableView">
+                    <i class="bi bi-receipt-cutoff"></i>
+                    <p>Waitstaff</p>
+                </a>
+            }
+        </ul>
+    </nav>
+    <button id="Sidebar-Toggle-Button" onclick="document.getElementById('Sidebar').classList.toggle('shrunk'); $(this).children('i').toggleClass('bi-chevron-right').toggleClass('bi-chevron-left')">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+</header>
+
+<header id="TopBar">
+    <nav id="TopBar-Nav">
+        <partial name="_LoginPartial"/>
+    </nav>
+</header>
+
+<div class="container">
+    <main role="main" id="main">
+        @RenderBody()
+    </main>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/Utils.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

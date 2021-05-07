@@ -1,0 +1,25 @@
+@model TableComponent
+
+<div class="VisualBase" style="
+    left: @(Model.X)px; 
+    top: @(Model.Y)px;
+    width: @(Model.Width)px;
+    height: @(Model.Height)px;
+    @Model.Style">
+    @if (Model is Area area)
+    {
+        foreach (TableComponent child in area.Children)
+        {
+            <partial name="Waitstaff/_VisualBase" model="child"/>
+        }
+    }
+    @if (Model is Table)
+    {
+        <input class="CoverParent Button" type="button" value="@Model.Name" onclick="ToggleSidePanel('@Model.Id')"/>
+        <div class="AlertDiv BottomRight TableButton" value="@Model.Id"></div>
+    }
+    else
+    {
+        <p>Area: @Model.Name</p>
+    }
+</div>

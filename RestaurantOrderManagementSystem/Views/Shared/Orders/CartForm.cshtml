@@ -1,0 +1,30 @@
+@model RestaurantOrderManagementSystem.Models.ViewModels.Waitstaff.CartViewModel
+
+<h2>Create New Cart</h2>
+<form class="Height100" asp-controller="Orders" asp-action="WaitstaffCreateCart" method="post">
+    <fieldset>
+        @Html.AntiForgeryToken()
+        <div id="Form-Div">
+            <div class="SubDiv">
+                <div class="Label">Order ID:</div>
+                <div class="TextBox">@(Guid.NewGuid())</div>
+            </div>
+            <div id="Form-MenuItem-Div" class="SubDiv">
+                <div class="Label">Options:</div>
+                <div id="MenuItemDiv">
+                </div>
+                <input class="Button OkayButton Width100" type="button" value="Add Menu Item" onclick="OpenMenuItemPanel()"/>
+            </div>
+            <div class="SubDiv">
+                <label class="Label" asp-for="Cart.AdditionalDetails">Additional Details:</label>
+                <textarea class="TextBox Input Width100" asp-for="Cart.AdditionalDetails">@Model.Cart.AdditionalDetails</textarea>
+            </div>
+            <input type="hidden" asp-for="Cart.TableId" value="@(Model.Table.Id)"/>
+        </div>
+    </fieldset>
+    <br/>
+    <div class="SubDiv Width100">
+        <a class="LinkButton Button OkayButton Width100" href="javascript:$('form').submit()">Create</a>
+    </div>
+</form>
+<div class="CloseButton XButton" onclick="CloseEveryForm(); CloseCartForm();"></div>

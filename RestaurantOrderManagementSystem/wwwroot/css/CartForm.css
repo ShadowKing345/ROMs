@@ -1,0 +1,475 @@
+main {
+    padding: 0;
+}
+
+/*Cart Form*/
+#CartForm {
+    display: grid;
+    
+    grid-template-rows: max-content max-content min-content;
+    grid-template-columns: max-content;
+    
+    grid-row-gap: 10px;
+}
+
+/*MenuItemPanel*/
+#MenuItemPanel {
+    position: absolute;
+    width: 75%;
+    max-width: 800px;
+    height: 75%;
+    max-height: 600px;
+    
+    top: 50%;
+    left: 50%;
+    
+    transform: translate3d(-50%, -50%, 0);
+
+    background-color: var(--Background-3);
+    z-index: 3;
+    
+    padding: 10px;
+}
+
+#MenuItemPanel .Table {
+    width: 100%;
+    
+    border: 1px solid var(--Background-1);
+    
+    overflow-y: scroll;
+}
+
+#MenuItemPanel .Table tr {
+    height: 40px;
+    line-height: 34px;
+    
+    vertical-align: middle;
+}
+
+#MenuItemPanel .Table th, #MenuItemPanel .Table td {
+    padding: 5px 10px;
+    
+    white-space: nowrap;
+}
+
+#MenuItemPanel .TableHeader {
+    background-color: var(--Background-2);
+}
+
+#MenuItemPanel .Table .Column_Image {
+    width: 32px;
+    height: 32px;
+}
+
+#MenuItemPanel .Table .Column_Name {
+    width: 98%;
+}
+
+#MenuItemPanel .Table tr:not(.TableHeader):nth-child(even){
+    background-color: var(--Background-4);
+}
+
+#MenuItemPanel .Table tr:not(.TableHeader):nth-child(odd){
+    background-color: var(--Background-5);
+}
+
+#MenuItemPanel .Column_Image > img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+}
+
+/*MenuItemOptions Panel*/
+#MenuItemOptionsPanel {
+    position: absolute;
+
+    width: 75%;
+    max-width: 800px;
+    height: 75%;
+    max-height: 600px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate3d(-50%, -50%, 0);
+
+    background-color: var(--Background-3);
+    z-index: 3;
+    
+    padding: 10px;
+    
+    display: grid;
+    
+    grid-template-areas:
+            "Header"
+            "Options"
+            "Actions";
+    
+    grid-template-columns: 100%;
+    grid-template-rows: min-content auto min-content;
+    
+    grid-row-gap: 10px;
+}
+
+#MenuItemOptionsPanel #Header {
+    grid-area: Header;
+    
+    display: grid;
+    grid-template-areas: 
+            "Image Name VDivider Price"
+            "Image Name VDivider Divider"
+            "Image Name VDivider Quantity"
+            "Image ShortDescription ShortDescription ShortDescription";
+    
+    grid-template-columns: min-content auto min-content min-content;
+    grid-template-rows: min-content min-content min-content auto;
+    
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+    
+    position: relative;
+}
+
+#MenuItemOptionsPanel #Header * {
+    background-color: var(--Background-4);
+}
+
+#MenuItemOptionsPanel #Header #Image {
+    grid-area: Image;
+    
+    width: 128px;
+    height: 100%;
+    
+    object-fit: cover;
+}
+
+#MenuItemOptionsPanel #Header #Name {
+    grid-area: Name;
+    font-size: 30px;
+    text-align: center;
+}
+
+#MenuItemOptionsPanel #Header #VDivider {
+    grid-area: VDivider;
+    background-color: var(--Foreground);
+}
+
+#MenuItemOptionsPanel #Header #Divider {
+    grid-area: Divider;
+    background-color: var(--Foreground);
+}
+
+#MenuItemOptionsPanel #Header #Price {
+    grid-area: Price;
+    white-space: nowrap;
+    
+    height: max-content;
+}
+
+#MenuItemOptionsPanel #Header #Quantity {
+    grid-area: Quantity;
+    white-space: nowrap;
+
+    height: max-content;
+}
+
+#MenuItemOptionsPanel #Header #ShortDescription {
+    grid-area: ShortDescription;
+    
+    height: 100px;
+    text-align: center;
+}
+
+#MenuItemOptionsPanel #Options {
+    grid-area: Options;
+
+    overflow-y: scroll;
+    
+    background-color: var(--Background-2);
+    
+    padding: 10px;
+    
+    display: grid;
+    grid-template-rows: max-content;
+    grid-row-gap: 10px;
+}
+
+/*Options Div*/
+#MenuItemOptionsPanel #Options .OptionDiv {
+    background-color: var(--Background-3);
+    padding: 3px;
+    
+    display: grid;
+    grid-template-rows: max-content min-content max-content;
+}
+
+#MenuItemOptionsPanel #Options .OptionDiv #Name {
+    text-align: center;
+    font-size: 25px;
+}
+
+#MenuItemOptionsPanel #Options .OptionDiv #KVPairDiv {
+    text-align: center;
+}
+
+#MenuItemOptionsPanel #Options .OptionDiv #KVPairDiv .KVPair {
+    height: 32px;
+}
+
+#MenuItemOptionsPanel #Options .OptionDiv #KVPairDiv .KVPair .Value {
+}
+
+#MenuItemOptionsPanel #Actions {
+    grid-area: Actions;
+}
+
+/*MenuItemEntries*/
+#MenuItemDiv {
+    padding: 10px;
+}
+
+#MenuItemDiv .MenuItemEntry {
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    
+    grid-column-gap: 10px;
+    font-size: 20px;
+    
+    background-color: var(--Background-4);
+    border: 1px solid var(--Background-1);
+}
+
+#MenuItemDiv .MenuItemEntry:nth-child(even) {
+    background-color: var(--Background-5);
+}
+
+#MenuItemDiv .MenuItemEntry img {
+    width: 32px;
+    height: 32px;
+    
+    object-fit: cover;
+}
+
+#MenuItemDiv .MenuItemEntry .XButton {
+    border: none;
+    border-left: 1px solid var(--Background-1);
+}
+
+/*Cart Panel*/
+#CartPanel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 640px;
+    height: 480px;
+    
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 2;
+}
+
+#CartPanel #Form-Div {
+    display: grid;
+    grid-row-gap: 5px;
+}
+
+#CartPanel #MenuItemDiv {
+    overflow-y: scroll;
+    background-color: var(--Background-5);
+    display: grid;
+    grid-row-gap: 3px;
+    
+    height: 60px;
+}
+
+#CartPanel .MenuItemEntry {
+    height: 32px;
+}
+
+/*Waitstaff*/
+/*Side panel*/
+#SidePanel {
+    padding: 15px;
+
+    display: grid;
+
+    grid-template-areas: "TableName" "TableNameCartDivider" "Cart" "Actions";
+
+    grid-template-rows: max-content min-content auto min-content;
+    grid-row-gap: 5px;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    max-width: 400px;
+    width: 30%;
+    height: 100%;
+
+    transition: all 0.3s linear;
+    overflow: hidden;
+}
+
+#TableName {
+    text-align: center;
+
+    grid-area: TableName;
+}
+
+#TableNameCartDivider {
+    grid-area: TableNameCartDivider;
+}
+
+#CartDiv {
+    grid-area: Cart;
+
+    display: grid;
+    grid-template-areas: "Id" "IdMenuItemDivider" "MenuItem" "AdditionalDetails";
+    grid-template-rows: max-content min-content max-content auto max-content;
+    grid-row-gap: 20px;
+}
+
+#CartId {
+    text-align: center;
+
+    grid-area: Id;
+}
+
+#CartIdMenuItemDivider {
+    grid-area: IdMenuItemDivider;
+}
+
+#CartMenuItem {
+    grid-area: MenuItem;
+
+    height: max-content;
+}
+
+#CartMenuItem > div {
+    height: 240px;
+    overflow-y: scroll;
+}
+
+#CartAdditionalDetails {
+    grid-area: AdditionalDetails;
+}
+
+#TablePreviewMenuItemDiv {
+    display: grid;
+    grid-row-gap: 3px;
+}
+
+#TablePreviewMenuItemDiv .MenuItemEntry {
+}
+
+.Actions {
+    grid-area: Actions;
+}
+
+.MenuItemEntry {
+    display: grid;
+    grid-template-areas: "Image Name";
+    grid-template-columns: min-content auto;
+    grid-column-gap: 10px;
+
+    height: 70px;
+
+    padding: 3px;
+    margin: 3px 0;
+    background-color: var(--Background-5);
+    
+    box-sizing: content-box;
+}
+
+#MenuItemImage {
+    grid-area: Image;
+}
+
+#MenuItemImage img {
+    width: 64px;
+    height: 64px;
+    
+    object-fit: cover;
+}
+
+#MenuItemName {
+    grid-area: Name;
+}
+
+#Overlay {
+    position: absolute;
+    
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    
+    background-color: #00000050;
+    
+    z-index: 1;
+}
+
+/*Bill*/
+#BillPanel {
+    position: absolute;
+
+    width: 300px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 2;
+    
+    background-color: mintcream;
+    color: black;
+    
+    display: grid;
+    grid-template-rows: min-content;
+
+    padding: 30px 10px 10px;
+}
+
+#BillPanel .Divider {
+    background-color: black;
+}
+
+#BillPanel #MenuitemEntries {
+    display: grid;
+    
+    overflow-y: scroll;
+    
+    height: max-content;
+    max-height: 300px;
+}
+
+#BillPanel .BillEntry {
+    display: grid;
+    grid-template-areas: 
+            "Name Quantity UnitPrice"
+            "Name ... TotalPrice";
+    
+    grid-template-columns: auto min-content min-content;
+    
+    white-space: nowrap;
+}
+
+#BillPanel #Name {
+    grid-area: Name;
+    white-space: normal;
+}
+#BillPanel #Quantity {
+    grid-area: Quantity;
+    text-align: right;
+}
+#BillPanel #Price {
+    grid-area: UnitPrice;
+    text-align: right;
+}
+#BillPanel #TotalPrice {
+    grid-area: TotalPrice;
+    text-align: right;
+}
+
+#BillPanel #Total {
+    text-align: right;
+}
+

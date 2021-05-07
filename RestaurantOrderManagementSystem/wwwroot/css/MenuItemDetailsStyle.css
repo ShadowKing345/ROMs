@@ -1,0 +1,201 @@
+#Div {
+    width: 100%;
+
+    display: grid;
+    grid-template-areas: 
+                "Image Name Name"
+                "Image Price Quantity"
+                "Image ShortDescription ShortDescription"
+                "LongDescription LongDescription LongDescription"
+                "Categories Categories Categories"
+                "Options Options Options";
+
+    grid-template-columns: fit-content(220px) min-content min-content;
+    grid-template-rows: min-content min-content max-content auto;
+
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+
+    box-sizing: border-box;
+}
+
+#Div input, #Div textarea {
+    box-sizing: border-box;
+    resize: none;
+}
+
+.TextBox {
+    background-color: var(--Background-2);
+    border: 1px solid var(--Background-1);
+
+    padding: 3px;
+    
+    width: 100%;
+}
+
+.SideDiv {
+    background-color: var(--Background-3);
+    border: 1px solid var(--Background-1);
+
+    width: 400px;
+    height: fit-content;
+    padding: 10px;
+}
+
+.MainDiv {
+    background-color: var(--Background-3);
+    border: 1px solid var(--Background-1);
+
+    height: max-content;
+    padding: 10px;
+}
+
+.MainDiv .TextBox {
+    height: 100%;
+}
+
+#Name-Div {
+    grid-area: Name;
+}
+
+#ShortDescription-Div {
+    grid-area: ShortDescription;
+    background-color: var(--Background-3);
+}
+
+
+#LongDescription-Div {
+    grid-area: LongDescription;
+    background-color: var(--Background-3);
+}
+
+#LongDescription-Div .TextBox {
+    height: 200px;
+}
+
+#Quantity-Div {
+    grid-area: Quantity;
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-column-gap: 10px;
+    
+    background-color: var(--Background-3);
+}
+
+#Quantity-Div .TextBox {
+    vertical-align: middle;
+    
+    line-height: 48px;
+    text-align: center;
+    
+    width: auto;
+}
+
+#Price-Div {
+    grid-area: Price;
+    background-color: var(--Background-3);
+    
+    width: 200px;
+}
+
+#Image-Div {
+    grid-area: Image;
+
+    position: relative;
+    background-color: var(--Background-3);
+
+    border: 1px solid var(--Background-1);
+}
+
+#Image {
+    width: 280px;
+    height: 100%;
+    
+    object-fit: cover;
+}
+
+#Categories-Div {
+    grid-area: Categories;
+    background-color: var(--Background-3);
+}
+
+#Categories-Div .TextBox {
+    border-collapse: separate;
+}
+
+#Categories-Div .TextBox td {
+    position: relative;
+}
+
+#Categories-Div .TextBox img {
+    width: 32px;
+    height: 32px;
+    
+    position: absolute;
+    
+    top: 50%;
+    left: 50%;
+    
+    transform: translate3d(-50%, -50%, 0);
+}
+
+#Options-Div {
+    grid-area: Options;
+    background-color: var(--Background-3);
+}
+
+#Options-Div .TextBox {
+    display: grid;
+    grid-row-gap: 5px;
+}
+
+/*Categories*/
+#Categories-Div .TextBox th:first-child {
+    white-space: nowrap;
+    padding: 3px;
+}
+
+#Categories-Div .TextBox th:last-child {
+    padding: 3px;
+    width: 99%;
+}
+
+#Categories-Div .TextBox tr td:last-child {
+    vertical-align: middle;
+    line-height: 32px;
+}
+
+#Categories-Div .TextBox tr:nth-child(even) {
+    background-color: var(--Background-4);
+}
+
+/*Options Div*/
+.OptionDiv {
+    background-color: var(--Background-4);
+}
+
+.OptionDiv .KVPair {
+    background-color: var(--Background-5);
+    
+    display: grid;
+    grid-template-columns: auto max-content;
+    
+    padding: 5px;
+}
+
+.OptionDiv .Label:hover .bi {
+    color: var(--Info-background);
+}
+
+/*Options Value Div*/
+.OptionValuesDiv .KVPair {
+    padding: 5px;
+}
+
+.OptionValuesDiv .KVPair:nth-child(odd) {
+    background-color: var(--Background-3);
+}
+
+.OptionValuesDiv .Key , .OptionValuesDiv .Value{
+    display: inline-block;
+}

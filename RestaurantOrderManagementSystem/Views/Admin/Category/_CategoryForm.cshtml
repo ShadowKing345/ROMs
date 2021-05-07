@@ -1,0 +1,59 @@
+@model RestaurantOrderManagementSystem.Controllers.CategoryViewModel
+
+<style>
+    #Form-Div {
+        display: grid;
+        grid-template-areas: "Image" "Name";
+        grid-template-rows: min-content auto;
+        grid-row-gap: 10px;
+    }
+    
+    #Form-Name-Div {
+        grid-area: Name;
+    }
+    
+    #Form-Image-Div {
+        grid-area: Image;
+        position: relative;
+        min-width: 0;
+        width: 148px;
+        height: 148px;
+        
+        overflow: hidden;
+    }
+    
+    #Form-Image-Div > #image-input {
+        position: absolute;
+        width: 128px;
+        height: 128px;
+        
+        top: 10px;
+        left: 10px;
+        
+        opacity: 0;
+        overflow: hidden;
+        
+        size: 1px;
+    }
+    
+    #Form-Image-Div > #image-preview {
+        width: 128px;
+        height: 128px;
+        
+        object-fit: cover;                
+    }
+</style>
+
+<div id="Form-Div">
+    @Html.AntiForgeryToken()
+    <div id="Form-Name-Div" class="Div">
+        <label class="Label" asp-for="Category.Name">Name:</label>
+        <input class="TextBox Input" asp-for="Category.Name" placeholder="Name of category." />
+    </div>
+    <div id="Form-Image-Div" class="Div">
+        <input id="image-input" type="file" asp-for="Image" accept="image/*" onchange="imagePreview(this)">
+        <img src="~/favicon.ico" id="image-preview" alt>
+    </div>
+    
+    <script src="~/js/formUtils.js"></script>
+</div>

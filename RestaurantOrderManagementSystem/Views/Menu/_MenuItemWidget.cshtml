@@ -1,0 +1,25 @@
+@using RestaurantOrderManagementSystem.Models.RelationshipIntermidiary
+@model RestaurantOrderManagementSystem.Models.Menu.MenuItem
+
+<div class="Menu_Item_Widget">
+    <a asp-action="MenuItemDetails" asp-controller="Menu" asp-route-guid="@Model.Id" id="MenuItemWidget_Link"><span></span></a>
+    <img src="/@(Model.ImagePath ?? "favicon.ico")" alt="" id="Menu_Item_Widget_Image">
+    <p id="Menu_Item_Widget_Header">@Model.Name</p>
+    <div id="Menu_Item_Widget_Divider"></div>
+    <p id="Menu_Item_Widget_Description">@(Model.ShortDescription ?? Model.LongDescription)</p>
+    <p id="Menu_Item_Widget_Price">@Model.Price KES</p>
+    @if (Model.Quantity != null)
+    {
+        <p id="Menu_Item_Widget_Quantity">@Model.Quantity</p>
+    }
+    <div id="Menu_Item_Widget_Categories">
+        @foreach(MenuItemCategory menuItemCategory in Model.MenuItemCategories)
+        {
+            <div class="Menu_Item_Widget_Category">
+                <img id="Menu_Item_Widget_Category_Image" src="/@(menuItemCategory.Category.ImagePath ?? "favicon.ico")" alt=""/>
+                <p id="Menu_Item_Widget_Category_Text">@menuItemCategory.Category.Name</p>
+            </div>
+        }
+    </div>
+    <a id="Menu_Item_Widget_Links" asp-controller="Menu" asp-action="MenuItemDetails" asp-route-guid="@Model.Id">Details</a>
+</div>

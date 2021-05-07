@@ -1,0 +1,48 @@
+@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "Admin - Category Dashboard";
+}
+
+
+<div>
+    <link rel="stylesheet" href="~/css/Table.css">
+
+    <h3>Category Management</h3>
+    <table class="Table">
+        <tr class="TableHeaders">
+            <th class="Column_Image"></th>
+            <th class="Column_Name">Name</th>
+            <th class="Column_Actions"></th>
+        </tr>
+        @foreach (Category category in Model)
+        {
+            <tr>
+                <td class="Column_Image">
+                    <img src="~/@(category.ImagePath ?? "favicon.ico")" alt=""/>
+                </td>
+                <td class="Column_Name">
+                    @category.Name
+                </td>
+                <td class="Column_Actions">
+                    <form asp-controller="MenuItem" asp-action="DeleteMenuItemCategory" asp-route-id="@category.Id" id="deleteForm@(category.Id)" method="post">
+                        <a class="LinkSVG InfoButton Invert" asp-controller="Admin" asp-action="EditCategory" asp-route-id="@category.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-richtext" viewBox="0 0 16 16">
+                                <path d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                            </svg>
+                        </a>
+                        <a class="LinkSVG ErrorButton Invert" href="javascript:$('#deleteForm@(category.Id)').submit()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                            </svg>
+                        </a>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <a class="LinkButton OkayButton Button" asp-controller="Admin" asp-action="CreateCategory">New Category</a>
+    @Html.AntiForgeryToken()
+</div>

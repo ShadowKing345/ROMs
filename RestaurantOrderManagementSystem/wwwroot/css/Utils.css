@@ -1,0 +1,389 @@
+.CloseButton {
+    position: absolute !important;
+    
+    width: 20px !important;
+    height: 20px !important;
+    
+    top: 1px !important;
+    left: 1px !important;
+}
+
+.Divider {
+    position: relative;
+
+    background-color: var(--Foreground);
+
+    width: 95%;
+    height: 1px;
+
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.Checkbox {
+    display: inline-block;
+    
+    width: 20px;
+    height: 20px;
+    
+    background: var(--Background-4);
+    border: 1px solid var(--Background-1);
+    box-shadow: 1px 1px var(--Background-1);
+    
+    position: relative;
+}
+
+.Checkbox:hover {
+    background-color: var(--Background-5);
+}
+
+.Checkbox:active {
+    background-color: var(--Background-3);
+}
+
+.Checkbox.checked:before, .Checkbox.checked:after {
+    content: "";
+
+    position: absolute;
+    
+    width: 2px;
+    height: 100%;
+    
+    top: 0;
+    left: 50%;
+    
+    background: var(--Color2);
+}
+
+.Checkbox:before {
+    transform: translateX(-50%) rotateZ(45deg);
+}
+
+.Checkbox:after {
+    transform: translateX(-50%) rotateZ(-45deg);
+}
+
+.Checkbox > .Checkbox-Input {
+    position: absolute;
+    
+    left: 0;
+    top: 0;
+    
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+    
+    opacity: 0;
+}
+
+.Input {
+    border: none;
+    margin: 0;
+    
+    padding: 3px;
+}
+
+.Input:focus {
+    outline: none;
+}
+
+.LinkButton {
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    
+    background-color: var(--Background-5);
+    border: 1px solid var(--Background-3);
+    
+    color: var(--Foreground);
+    
+    line-height: 40px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.LinkButton:hover {
+    color: var(--Foreground);
+    text-decoration: none;
+}
+
+.ShortButton {
+    height: 40px;
+    width: 100px;
+}
+
+.Button {
+    background-color: var(--Background-5);
+    color: var(--Foreground);
+    border: 1px solid var(--Background-1);
+}
+
+.Button:focus {
+    outline: none;
+}
+
+.OkayButton:not(.Invert):hover {
+    background-color: var(--Ok-background);
+    color: var(--Ok-foreground);
+}
+
+.OkayButton:not(.Invert):active {
+    background-color: var(--Ok-background-active);
+}
+
+.OkayButton.Invert:hover {
+    color: var(--Ok-background);
+}
+
+.OkayButton.Invert:active {
+    color: var(--Ok-background-active);
+}
+
+.ErrorButton:not(.Invert):hover {
+    background-color: var(--Error-background);
+    color: var(--Error-foreground);
+}
+
+.ErrorButton:not(.Invert):active {
+    background-color: var(--Error-background-active);
+}
+
+.ErrorButton.Invert:hover {
+    color: var(--Error-background);
+}
+
+.ErrorButton.Invert:active {
+    color: var(--Error-background-active);
+}
+
+.InfoButton:not(.Invert):hover {
+    background-color: var(--Info-background);
+    color: var(--Info-foreground);
+}
+
+.InfoButton:not(.Invert):active {
+    background-color: var(--Info-background-active);
+}
+
+.InfoButton.Invert:hover {
+    color: var(--Info-background);
+}
+
+.InfoButton.Invert:active {
+    color: var(--Info-background-active);
+}
+
+.OkayButton:focus, .ErrorButton:focus, .InfoButton:focus {
+    outline: none;
+}
+
+.InputSelect {
+    background-color: var(--Background-5);
+    color: var(--Foreground);
+    border: 1px solid var(--Background-3);
+}
+
+.XButton {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    
+    background-color: var(--Background-5);
+    border: 1px solid var(--Background-2);
+    
+    position: relative;
+}
+
+.XButton:hover {
+    background-color: var(--Background-4);
+}
+
+.XButton:active {
+    background-color: var(--Background-3);
+}
+
+.XButton:before, .XButton:after {
+    content: "";
+    
+    position: absolute;
+    
+    width: 3px;
+    height: 100%;
+    
+    top: 50%;
+    left: 50%;
+    
+    background-color: var(--Error-background);
+}
+
+.XButton:hover:before, .XButton:hover:after {
+    background-color: var(--Error-background-active);
+}
+
+.XButton:before {
+    transform: translate3d(-50%, -50%, 0) rotateZ(45deg);
+}
+
+.XButton:after {
+    transform: translate3d(-50%, -50%, 0) rotateZ(-45deg);
+}
+
+.Div {
+    background-color: var(--Background-3);
+    border: 1px solid var(--Background-1);
+
+    height: max-content;
+    width: max-content;
+    
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.Div .Label {
+    width: 100%;
+}
+
+.Div .TextBox {
+    background-color: var(--Background-4);
+    border: 1px solid var(--Background-2);
+    color: var(--Foreground);
+    
+    height: 100%;
+    padding: 10px;
+}
+
+.SubDiv {
+    padding: 10px;
+
+    box-sizing: border-box;
+    background-color: var(--Background-2);
+    
+    border: 1px solid var(--Background-1);
+}
+
+.SubDiv .TextBox {
+    background-color: var(--Background-5);
+    height: max-content;
+}
+
+.Radio {
+    background: var(--Background-4);
+    border: 1px solid var(--Background-1);
+    box-shadow: 1px 1px var(--Background-1);
+    
+    width: 20px;
+    height: 20px;
+    
+    position: relative;
+    
+    border-radius: 5px;
+    
+    display: inline-block;
+}
+
+.Radio:before {
+    content: "";
+    position: absolute;
+    
+    width: 45%;
+    height: 45%;
+
+    top: 50%;
+    left: 50%;
+
+    border-radius: 2px;
+
+    transform: translate3d(-50%, -50%, 0);
+}
+
+.Radio.checked:before {
+    background-color: var(--Color3);
+}
+
+.Radio.checked:hover:before {
+    background-color: var(--Color2);
+}
+
+.Radio.checked:active:before {
+    background-color: var(--Color1);
+}
+
+.Radio:hover {
+    background-color: var(--Background-5);
+}
+
+.Radio:active {
+    background-color: var(--Background-3);
+}
+
+.Radio > .Radio-Input {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+
+    opacity: 0;
+}
+
+.hidden {
+    display: none;
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.LinkSVG {
+    display: inline-block;
+    color: var(--Foreground);
+}
+
+.LinkSVG:hover {
+    color: var(--Foreground);
+}
+
+.LinkSVG > svg {
+    width: 100%;
+    height: 100%;
+}
+
+.Width100 {
+    width: 100% !important;
+}
+
+.Height100 {
+    height: 100% !important;
+}
+
+.VDivider {
+    position: relative;
+    
+    top: 50%;
+    transform: translateY(-50%);
+    
+    width: 1px;
+    height: 95%;
+    
+    background-color: var(--Foreground);
+}
+
+.CoverParent {
+    position: absolute;
+    
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.BottomRight {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

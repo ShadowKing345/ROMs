@@ -1,0 +1,106 @@
+@model RestaurantOrderManagementSystem.Controllers.TableViewModel
+
+<div id="TableDiv">
+    <link rel="stylesheet" href="~/css/TableDashboard.css"/>
+
+    <h2>Table Dashboard</h2>
+    <div Id="TableContainer" class="Div">
+        @if (Model.StartingNode != null)
+        {
+            <div class="TableEntry">
+                <div class="TableHeader">
+                    <div>@Model.StartingNode.Name</div>
+                    <div>ID: @Model.StartingNode.Id</div>
+                    <div></div>
+                    <div>
+                        <a class="Action-Link" href="javascript:OpenForm(postType.UPDATE, objectType.AREA, '@(Model.StartingNode.Id)')"><i class="bi bi-pencil-square"></i></a>
+                    </div>
+                </div>
+                <div class="collapse show" id="table-@Model.StartingNode.Id">
+                    <div class="TableSubHeading" onclick="ToggleCollapse(this,'table-properties-@Model.StartingNode.Id')">
+                        <div>Properties:</div>
+                        <div></div>
+                        <div></div>
+                        <div>
+                            <i class="bi bi-chevron-up Action-Link"></i>
+                        </div>
+                    </div>
+                    <div class="collapse TableProperties" id="table-properties-@Model.StartingNode.Id">
+                        <div class="SubDiv">
+                            <div class="Label">Width:</div>
+                            <div class="TextBox">@Model.StartingNode.Width</div>
+                        </div>
+                        <div class="SubDiv">
+                            <div class="Label">Height:</div>
+                            <div class="TextBox">@Model.StartingNode.Height</div>
+                        </div>
+                        <div class="SubDiv">
+                            <div class="Label">X:</div>
+                            <div class="TextBox">@Model.StartingNode.X</div>
+                        </div>
+                        <div class="SubDiv">
+                            <div class="Label">Y:</div>
+                            <div class="TextBox">@Model.StartingNode.Y</div>
+                        </div>
+                        <div class="SubDiv">
+                            <div class="Label">Style:</div>
+                            <div class="TextBox">@Model.StartingNode.Style</div>
+                        </div>
+                    </div>
+                    <div class="TableSubHeading" onclick="@Model.StartingNode.Children.Count > 0 ? ToggleCollapse(this, 'table-children-@(Model.StartingNode.Id)') : null ">
+                        <div>Children:</div>
+                        <div></div>
+                        <div></div>
+                        <div class="TableHeaderActions Dropdown">
+                            <a class="Action-Link" href="javascript:ToggleDropdown('AddMenu@(Model.StartingNode.Id)')"><i class="bi bi-plus"></i></a>
+                            @if (Model.StartingNode.Children.Count > 0)
+                            {
+                                <i class="Action-Link bi @(Model.StartingNode.Children.Count > 0 ? "bi-chevron-down" : "bi-chevron-up")"></i>
+                            }
+                            <div class="Dropdown-Menu collapse CloseOnOutsideClick" id="AddMenu@(Model.StartingNode.Id)">
+                                <a class="LinkButton Button OkayButton" href="javascript:OpenForm(postType.CREATE, objectType.TABLE,'@Model.StartingNode.Id');ToggleDropdown('AddMenu@(Model.StartingNode.Id)')">Table</a>
+                                <a class="LinkButton Button OkayButton" href="javascript:OpenForm(postType.CREATE, objectType.AREA,'@Model.StartingNode.Id');ToggleDropdown('AddMenu@(Model.StartingNode.Id)')">Area</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse @(Model.StartingNode.Children.Count > 0 ? "show" : "")" id="table-children-@(Model.StartingNode.Id)">
+                        @foreach (TableComponent component in Model.StartingNode.Children)
+                        {
+                            <partial name="Admin/TableComponent" model="@component"/>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <br/>
+    <div>
+        <div>
+            <h3>Orphanded Component</h3>
+        </div>
+        <div class="Div">
+            @foreach (TableComponent component in Model.UnusedComponents)
+            {
+                <partial name="Admin/TableComponent" model="@component"/>
+            }
+        </div>
+    </div>
+
+    <div id="Overlay" class="hidden">
+    </div>
+    <form class="hidden" id="TableDashboardForm" method="post">
+        @Html.AntiForgeryToken()
+        <fieldset id="TableDashboardFormFieldset">
+
+        </fieldset>
+        <br/>
+        <div class="Div" style="text-align: center">
+            <a class="LinkButton Button OkayButton" href="javascript:$('#TableDashboardForm').submit()">Submit</a>
+            <a class="LinkButton Button ErrorButton" href="javascript:CloseForm()">Cancel</a>
+        </div>
+    </form>
+    <script src="~/js/TableUtils.js"></script>
+    <script>
+        Array.from(document.getElementsByTagName("a")).forEach(value => Load(value));
+    </script>
+</div>

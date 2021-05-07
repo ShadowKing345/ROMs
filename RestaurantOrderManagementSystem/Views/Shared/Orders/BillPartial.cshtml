@@ -1,0 +1,22 @@
+@using RestaurantOrderManagementSystem.Models.ViewModels.Order
+@model RestaurantOrderManagementSystem.Models.ViewModels.Order.BillViewModel
+
+<div class="CloseButton XButton" onclick="this.parentElement.classList.add('hidden'); CloseEveryForm();"></div>
+<div id="Header">@Html.Raw(Model.Header)</div>
+<div class="Divider"></div>
+<div id="MenuitemEntries">
+    @foreach (MenuItemBillEntry entry in Model.Entries)
+    {
+        <div class="BillEntry">
+            <div id="Name">@entry.Name</div>
+            <div id="Quantity">@entry.Quantity*</div>
+            <div id="Price">@entry.Price KES</div>
+            <div id="TotalPrice">@entry.Total KES</div>
+        </div>
+    }
+</div>
+<div class="Divider"></div>
+<div id="Total"><h2>Total: @Model.Total</h2></div>
+<div class="Divider"></div>
+<div id="Footer">@Html.Raw(Model.Footer)</div>
+

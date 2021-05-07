@@ -1,0 +1,15 @@
+@model RestaurantOrderManagementSystem.Controllers.CategoryViewModel
+
+<div>
+    <h2>Edit Category</h2>
+    <form asp-controller="MenuItem" asp-action="UpdateMenuItemCategory" asp-route-id="@Model.Category.Id" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <partial name="Category/_CategoryForm" model="@Model"/>
+        </fieldset>
+        <br>
+        <div class="Div">
+            <a class="LinkButton Button OkayButton" href="javascript:$('form').submit()">Save Changes</a>
+            <a class="LinkButton Button ErrorButton" asp-controller="Admin" asp-action="CategoryDashBoard">Cancel</a>
+        </div>
+    </form>
+</div>

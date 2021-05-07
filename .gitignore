@@ -1,0 +1,8 @@
+RestaurantOrderManagementSystem/Data
+RestaurantOrderManagementSystem/bin
+RestaurantOrderManagementSystem/wwwroot/Assets/Images/*
+RestaurantOrderManagementSystem/DB/*
+
+RestaurantOrderManagementSystem/obj
+
+.idea

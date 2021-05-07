@@ -1,0 +1,15 @@
+@model RestaurantOrderManagementSystem.Models.Menu.MenuItemOption
+
+<div>
+    <h3>New Menu Item Extra</h3>
+    <form asp-controller="MenuItem" asp-action="CreateMenuItemOption" method="post">
+        <partial name="Options/_MenuItemOptionForm"/>
+        
+        <br/>
+        
+        <div class="Div">
+            <a class="LinkButton Button OkayButton" href="javascript:$('form').submit()">Create</a>
+            <a class="LinkButton Button ErrorButton" asp-controller="Admin" asp-action="OptionsDashboard">Cancel</a>
+        </div>
+    </form>
+</div>

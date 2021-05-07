@@ -1,0 +1,77 @@
+@model TableComponent
+<div class="TableEntry">
+    <div class="TableHeader" onclick="ToggleCollapse(this, 'table-@Model.Id')">
+        <div>@Model.Name</div>
+        <div>ID: @Model.Id</div>
+        <div>Type: @Model.GetType().Name</div>
+        <form asp-controller="Table" asp-action="@(Model is Area ? "DeleteArea" : "DeleteTable")" asp-route-guid="@Model.Id" method="post" id="TableComponentDeleteForm@(Model.Id)">
+            <a class="Action-Link" href="javascript:OpenForm(postType.UPDATE, @(Model is Table ? "objectType.TABLE" : "objectType.AREA"), '@Model.Id')"><i class="bi bi-pencil-square"></i></a>
+            <a class="Action-Link" href="javascript:$('#TableComponentDeleteForm@(Model.Id)').submit()"><i class="bi bi-trash-fill"></i></a>
+            <i class="Action-Link bi bi-chevron-up"></i>
+        </form>
+    </div>
+    <div class="collapse @(Model is Area area1 && area1.Children.Count > 0 ? "show" : "")" id="table-@Model.Id">
+        <div class="TableSubHeading" onclick="ToggleCollapse(this,'table-properties-@Model.Id')">
+            <div>Properties</div>
+            <div></div>
+            <div></div>
+            <div>
+                <i class="bi bi-chevron-up Action-Link"></i>
+            </div>
+        </div>
+        <div class="collapse TableProperties" id="table-properties-@Model.Id">
+            <div class="SubDiv">
+                <div class="Label">Width:</div>
+                <div class="TextBox">@Model.Width</div>
+            </div>
+            <div class="SubDiv">
+                <div class="Label">Height:</div>
+                <div class="TextBox">@Model.Height</div>
+            </div>
+            <div class="SubDiv">
+                <div class="Label">X:</div>
+                <div class="TextBox">@Model.X</div>
+            </div>
+            <div class="SubDiv">
+                <div class="Label">Y:</div>
+                <div class="TextBox">@Model.Y</div>
+            </div>
+            <div class="SubDiv">
+                <div class="Label">Style:</div>
+                <div class="TextBox">@Model.Style</div>
+            </div>
+            @if (Model is Table table)
+            {
+                <div class="SubDiv">
+                    <div class="Label">Number of Seats:</div>
+                    <div class="TextBox">@table.NumberOfSeats</div>
+                </div>
+            }
+        </div>
+        @if (Model is Area area)
+        {
+            <div class="TableSubHeading" onclick="@area.Children.Count > 0 ? ToggleCollapse(this, 'table-children-@(Model.Id)') : null ">
+                <div>Children:</div>
+                <div></div>
+                <div></div>
+                <div class="TableHeaderActions Dropdown">
+                    <a class="Action-Link" href="javascript:ToggleDropdown('AddMenu@(Model.Id)')"><i class="bi bi-plus"></i></a>
+                    @if (area.Children.Count > 0)
+                    {
+                        <i class="Action-Link bi @(area.Children.Count > 0 ? "bi-chevron-down" : "bi-chevron-up")"></i>
+                    }
+                    <div class="Dropdown-Menu collapse CloseOnOutsideClick" id="AddMenu@(Model.Id)">
+                        <a class="LinkButton Button OkayButton" href="javascript:OpenForm(postType.CREATE, objectType.TABLE,'@Model.Id');ToggleDropdown('AddMenu@(Model.Id)')">Table</a>
+                        <a class="LinkButton Button OkayButton" href="javascript:OpenForm(postType.CREATE, objectType.AREA,'@Model.Id');ToggleDropdown('AddMenu@(Model.Id)')">Area</a>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse @(area.Children.Count > 0 ? "show" : "")" id="table-children-@(Model.Id)">
+                @foreach (TableComponent component in area.Children)
+                {
+                    <partial name="Admin/TableComponent" model="@component"/>
+                }
+            </div>
+        }
+    </div>
+</div>

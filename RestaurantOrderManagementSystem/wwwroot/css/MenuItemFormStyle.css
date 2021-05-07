@@ -1,0 +1,151 @@
+#Form-Div {
+    width: 100%;
+
+    display: grid;
+    grid-template-areas: 
+                "Image Name"
+                "Image Price"
+                "Image ShortDescription"
+                "LongDescription LongDescription"
+                "Hidden Quantity"
+                "Categories Categories"
+                "Options Options";
+
+    grid-template-columns: max-content min-content;
+    grid-template-rows: min-content min-content min-content auto;
+
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+
+    box-sizing: border-box;
+}
+
+#Form-Div input, #Form-Div textarea {
+    box-sizing: border-box;
+    resize: none;
+}
+
+.TextBox {
+    background-color: var(--Background-5);
+    border: 1px solid var(--Background-1);
+    color: var(--Foreground);
+    
+    padding: 3px;
+
+    width: 100%;
+}
+
+.SideDiv {
+    background-color: var(--Background-3);
+    border: 1px solid var(--Background-1);
+
+    width: 400px;
+    min-height: 60px;
+    height: fit-content;
+    padding: 10px;
+}
+
+.MainDiv {
+    background-color: var(--Background-3);
+    border: 1px solid var(--Background-1);
+
+    height: max-content;
+    padding: 10px;
+}
+
+.MainDiv .TextBox {
+    height: 100%;
+}
+
+#Form-Name-Div {
+    grid-area: Name;
+}
+
+#Form-ShortDescription-Div {
+    grid-area: ShortDescription;
+}
+
+#Form-ShortDescription-Div > label {
+    display: block;
+}
+
+#Form-ShortDescription-Div > textarea {
+    width: 100%;
+}
+
+#Form-LongDescription-Div {
+    grid-area: LongDescription;
+}
+
+#Form-Quantity-Div {
+    grid-area: Quantity;
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-column-gap: 10px;
+}
+
+#Form-Price-Div {
+    grid-area: Price;
+}
+
+#Form-Hidden-Div {
+    grid-area: Hidden;
+    
+    width: 280px;
+}
+
+#Form-Hidden-Div .Label {
+    width: auto;
+    vertical-align: middle;
+    height: 100%;
+    line-height: 100%;
+}
+
+#Form-Image-Div {
+    grid-area: Image;
+
+    position: relative;
+}
+
+#Form-Image-Div > #image-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+#Form-Image-Div > #image-preview {
+    width: 280px;
+    height: 280px;
+
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 10px;
+
+    object-fit: cover;
+}
+
+#Form-Categories-Div {
+    grid-area: Categories;
+}
+
+#Form-Categories-Div > table {
+    margin: 0;
+    width: 100%;
+}
+
+#Form-Categories-Div td:last-child {
+    width: 100%;
+}
+
+#Form-Options-Div {
+    grid-area: Options;
+}
+
+#Form-Options-Div table {
+    margin: 0;
+    width: 100%;
+}
+
+#Form-Options-Div table select {
+    width: 100%;
+}

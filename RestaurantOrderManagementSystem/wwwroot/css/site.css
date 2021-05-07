@@ -1,0 +1,112 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+:root {
+  --Background-1: #222222;
+  --Background-2: #2b2b2b;
+  --Background-3: #333333;
+  --Background-4: #3c3c3c;
+  --Background-5: #444444;
+  
+  --Foreground: #f8f9fa;
+
+  --Color1: #800000;
+  --Color2: #c00000;
+  --Color3: #ff0000;
+  --Color4: #ff4040;
+  --Color5: #ff8080;
+  
+  --Ok-background: #29cc29;
+  --Ok-background-active: #1f991f;
+  --Ok-foreground: #f2f2f2;
+  
+  --Error-background: #ff0000;
+  --Error-background-active: #bf1d00;
+  --Error-foreground: #fff;
+  
+  --Info-background: #1fc0ff;
+  --Info-background-active: #1790bf;
+  --Info-foreground: #fff;
+  
+  --TopBar-height: 40px;
+  --TopNav-border-bottom: 2px solid #171717;
+}
+
+img {
+  width: 16px;
+  height: 16px;
+  object-fit: cover;
+}
+
+html {
+  font-size: 14px;
+  position: relative;
+  min-height: 100%;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  height: 100vh;
+  
+  background-color: var(--Background-4);
+  color: var(--Foreground);
+}
+
+#TopBar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: var(--TopBar-height);
+  width: calc(100% - 40px);
+
+  background-color: var(--Background-2);
+  border-bottom: var(--TopNav-border-bottom);
+  
+  transition: width 0.3s linear;
+}
+
+#Sidebar:not(.shrunk) ~ #TopBar{
+  width: calc(100% - 200px);
+}
+
+#TopBar-Nav {
+  display: grid;
+  grid-template-columns: auto max-content;
+  grid-column-gap: 10px;
+  text-align: right;
+  
+  padding-right: 5px;
+}
+
+#TopBar-Nav * {
+  display: inline-block;
+  line-height: var(--TopBar-height);
+  color: var(--Foreground);
+}
+
+#TopBar-Nav a:hover {
+  color: var(--Error-background);
+}
+
+.container {
+  max-width: none;
+
+  padding: 40px 0 0 40px;
+
+  transition: padding-left 0.3s linear;
+  
+  height: 100%;
+}
+
+#Sidebar:not(.shrunk) ~ .container {
+  padding-left: 200px;
+}
+
+main {
+  box-sizing: content-box;
+  padding: 20px;
+}

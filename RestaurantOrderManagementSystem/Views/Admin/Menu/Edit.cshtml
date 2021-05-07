@@ -1,0 +1,15 @@
+@model RestaurantOrderManagementSystem.Controllers.MenuViewModel
+
+<div class="MenuItem-Form">
+    <h2>Edit Menu Item</h2>
+    <form asp-controller="MenuItem" asp-action="UpdateMenuItem" asp-route-id="@Model.MenuItem.Id" asp-route-returnUrl="@ViewData["returnUrl"]" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <partial name="Menu/_MenuItemForm" model="@Model"/>
+            <br/>
+            <div class="MainDiv" style="width: max-content">
+                <a class="OkayButton LinkButton Button" href="javascript:$('form').submit();">Edit</a>
+                <a class="ErrorButton LinkButton Button" asp-controller="Admin" asp-action="MenuItemDashBoard">Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+</div>

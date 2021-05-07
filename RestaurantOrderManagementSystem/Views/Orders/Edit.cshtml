@@ -1,0 +1,22 @@
+@model RestaurantOrderManagementSystem.Models.ViewModels.Order.CartViewModel
+
+<div>
+    <link rel="stylesheet" href="~/css/CartForm.css"/>
+    <style>
+        main {
+            padding: 20px !important;
+        }
+    </style>
+    <form asp-controller="Orders" asp-action="UpdateCart" asp-route-id="@Model.Cart.Id" method="post">
+        <fieldset>
+            <legend>Edit Cart</legend>
+            <partial name="_CartForm" model="@Model"/>
+        </fieldset>
+        <br/>
+        <div class="Div">
+            <a class="LinkButton OkayButton Button" href="javascript:$('form').submit()">Edit Order</a>
+            <a class="LinkButton ErrorButton Button" asp-controller="Orders" asp-action="OrderDashboard">Back</a>
+        </div>
+    </form>
+    <script src="~/js/CartForm.js"></script>
+</div>

@@ -1,0 +1,20 @@
+@model RestaurantOrderManagementSystem.Controllers.RoleViewModel
+
+@{
+    ViewData["Title"] = "Admin - Create Role";
+}
+
+<div>
+    <h2>Create Role</h2>
+    <form asp-controller="Accounts" asp-action="CreateRole" method="post">
+        <fieldset>
+            <partial name="Role/_UserRoleForm" model="@Model"/>
+            <br/>
+            <div class="Div">
+                <a class="LinkButton Button OkayButton" href="javascript:$('form').submit()">Create New Role</a>
+                <a class="LinkButton Button ErrorButton" asp-controller="Accounts" asp-action="RoleDashboard">Back</a>
+            </div>
+        </fieldset>
+    </form>
+</div>
+

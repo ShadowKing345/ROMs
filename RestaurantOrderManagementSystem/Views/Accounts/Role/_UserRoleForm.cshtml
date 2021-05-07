@@ -1,0 +1,70 @@
+@model RestaurantOrderManagementSystem.Controllers.RoleViewModel
+
+<div id="Form-Div">
+    <style>
+        #Form-Div {
+            width: max-content;
+            
+            display: grid;
+            
+            grid-template-areas: 
+                "Name"
+                "Permissions";
+                
+            grid-template-columns: max-content;
+                
+            grid-row-gap: 20px;
+        }
+        
+        #Form-Name-Div {
+            grid-area: Name;
+        }
+                
+        #Form-Permissions-Div {
+            grid-area: Permissions;
+            
+            display: grid;
+            grid-row-gap: 10px;
+        }
+        
+        #Form-Permissions-Div .permission{
+            display: grid;
+            grid-template-columns: auto min-content;
+            
+            grid-column-gap: 20px;
+        }
+    </style>
+    @Html.AntiForgeryToken()
+    <div id="Form-Name-Div" class="Div Width100">
+        <label class="Label" asp-for="Role.Name">Name:</label>
+        <input class="TextBox Input Width100" asp-for="Role.Name"/>
+    </div>
+    <div id="Form-Permissions-Div" class="Div Width100">
+        <div class="Label">Permissions:</div>
+        <div class="permission SubDiv">
+            <label class="Label" asp-for="IsAdmin">Is System Administrator?</label>
+            <div class="Checkbox">
+                <input class="Checkbox-Input" onclick="ToggleCheckbox(this)" asp-for="IsAdmin"/>
+            </div>
+        </div>
+        <div class="permission SubDiv">
+            <label class="Label" asp-for="IsChef">Is Chef?</label>
+            <div class="Checkbox">
+                <input class="Checkbox-Input" onclick="ToggleCheckbox(this)" asp-for="IsChef"/>
+            </div>
+        </div>
+        <div class="permission SubDiv">
+            <label class="Label" asp-for="IsManager">Is Manager?</label>
+            <div class="Checkbox">
+                <input class="Checkbox-Input" onclick="ToggleCheckbox(this)" asp-for="IsManager"/>
+            </div>
+        </div>
+        <div class="permission SubDiv">
+            <label class="Label" asp-for="IsWaitStaff">Is Waitstaff?</label>
+            <div class="Checkbox">
+                <input class="Checkbox-Input" onclick="ToggleCheckbox(this)" asp-for="IsWaitStaff"/>
+            </div>
+        </div>
+    </div>
+</div>
+

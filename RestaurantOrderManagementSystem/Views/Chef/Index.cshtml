@@ -1,0 +1,50 @@
+@using RestaurantOrderManagementSystem.Controllers
+@model List<ChefOrderViewModel>
+
+<div id="ChefOrderContainerDiv">
+    <link rel="stylesheet" href="~/css/Chef.css">
+    @foreach (ChefOrderViewModel order in Model)
+    {
+        <partial name="_OrderItem" model="@order"/>
+    }
+    @Html.AntiForgeryToken()
+
+    <script>
+    function MarkMenuItemComplete(OrderID, MenuItemID) {
+        let MenuItemDiv = document.getElementById(`MenuItemOrder_${MenuItemID}`);
+        if (!MenuItemDiv) return;
+        
+        $.ajax({
+            url: `@Url.Action("MarkMenuItemReadyToCollect", "Chef")/${MenuItemID}`,
+            method: "POST",
+            success: function () {
+                console.log("success");
+                Array.from(MenuItemDiv.getElementsByClassName("MenuItemOption")).forEach(function (i) {
+                    i.classList.add("checked");
+                });
+            },
+            error: function () {
+                console.log("Failed");
+            }
+        });
+    }
+    
+    function MarkOrderComplete(OrderID) {
+        let OrderDiv = document.getElementById(`Order_${OrderID}`);
+                if (!OrderDiv) return;
+                
+                $.ajax({
+                    url: `@Url.Action("MarkOrderAsReady", "Chef")/${OrderID}`,
+                    method: "POST",
+                    success: function () {
+                        console.log("success");
+                        OrderDiv.remove();
+                    },
+                    error: function () {
+                        console.log("Failed");
+                    }
+                });
+    }
+    </script>
+</div>
+

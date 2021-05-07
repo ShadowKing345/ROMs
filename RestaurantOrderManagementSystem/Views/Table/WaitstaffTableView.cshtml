@@ -1,0 +1,65 @@
+@model TableComponent
+
+<div id="canvas-div">
+    <link rel="stylesheet" href="~/css/CartForm.css"/>
+    <style>
+        main {
+            height: 100%;
+            box-sizing: border-box;
+        }
+        
+        #canvas-div {
+            position: relative;
+            height: 100%;
+        }
+        
+        .VisualBase {
+            position: absolute;
+            left: @(Model.X)px;
+            top: @(Model.Y)px;
+            width: @(Model.Width)px;
+            height: @(Model.Height)px;
+            overflow: hidden;
+        }
+        
+        .VisualBase p {
+            position: absolute;
+            bottom: 3px;
+            left: 3px;
+            
+            line-height: 0;
+            vertical-align: bottom;
+        }
+        
+        .VisualBase .AlertDiv {
+            z-index: 1;
+            
+            display: block;
+            width: max-content;
+            height: max-content;
+            
+            color: #ffff00;
+        }
+        
+        .VisualBase .Button {
+            z-index: 0;
+        }
+    </style>
+    <div class="VisualBase" style="@(Model.Style)">
+        @if (Model is Area area)
+        {
+            foreach (TableComponent child in area.Children)
+            {
+                <partial name="Waitstaff/_VisualBase" model="child"/>
+            }
+        }
+    </div>
+    <div id="MenuItemPanel" class="hidden"></div>
+    <div id="MenuItemOptionsPanel" class="hidden"></div>
+    <div id="CartPanel" class="Div hidden"></div>
+    <div id="SidePanel" class="Div hidden"></div>
+    <div id="BillPanel" class="hidden"></div>
+    <div id="Overlay" class="hidden"></div>
+
+    <script src="~/js/CartForm.js"></script>
+</div>

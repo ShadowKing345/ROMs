@@ -1,0 +1,36 @@
+@model RestaurantOrderManagementSystem.Models.ViewModels.Order.MenuItemOptionViewModel
+
+<div id="Header">
+    <img id="Image" alt src="~/@Model.MenuItem.ImagePath" width="16px" height="16px"/>
+    <div id="Name" class="Div Width100 Height100">@Model.MenuItem.Name</div>
+    <div id="Price" class="Div Width100 Height100">Price: @Model.MenuItem.Price KES</div>
+    <div id="Quantity" class="Div Width100 Height100">Quantity: @Model.MenuItem.Quantity</div>
+    <div id="ShortDescription" class="Div Width100 Height100">@(Model.MenuItem.ShortDescription ?? Model.MenuItem.LongDescription.Substring(0, Math.Min(255, Model.MenuItem.LongDescription.Length)))</div>
+    <div id="VDivider" class="VDivider"></div>
+    <div id="Divider" class="Divider"></div>
+</div>
+<div id="Options">
+    @foreach (MenuItemOption option in Model.MenuItemOptions)
+    {
+        <div class="OptionDiv">
+            <div id="Name">@option.Name</div>
+            <div class="Divider"></div>
+            <div id="KVPairDiv">
+                @foreach (KeyValuePair<string, string> keyValuePair in option.GetValuesPairs())
+                {
+                    <div class="KVPair">
+                        <label class="Key">@keyValuePair.Key</label>
+                        <div class="Value @(option.Type == MenuItemOptionType.Checkbox ? "Checkbox" : "Radio")">
+                            <input class="@(option.Type == MenuItemOptionType.Checkbox ? "Checkbox-Input" : "Radio-Input")" type="@(option.Type == MenuItemOptionType.Checkbox ? "checkbox" : "radio")" value="@(keyValuePair.Key)" name="@(option.Id)" onclick="@(option.Type == MenuItemOptionType.Checkbox ? "ToggleCheckbox(this)" : $"ToggleRadios(Array.from(document.getElementsByName('{option.Id}')))")"/>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<div class="Div Width100" id="Actions">
+    <a class="LinkButton Button OkayButton" onclick='AddMenuItem({"MenuItem": @Html.Raw(Json.Serialize(Model.MenuItem))}, [@($"'{string.Join("','", Model.MenuItemOptions.Select(x => x.Id))}'")])'>Add Menu Item</a>
+    <a class="LinkButton Button ErrorButton" onclick="CloseMenuItemOptionPanel()">Cancel</a>
+</div>
+<div class="XButton CloseButton" onclick="CloseEveryForm()"></div>

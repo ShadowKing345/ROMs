@@ -1,0 +1,42 @@
+@using RestaurantOrderManagementSystem.Models.ViewModels.Order
+@model RestaurantOrderManagementSystem.Models.ViewModels.Waitstaff.CartViewModel
+
+<div class="CloseButton XButton" onclick="CloseSidePanel()"></div>
+<div id="TableName">@Model.Table.Name</div>
+<div class="Divider" id="TableNameCartDivider"></div>
+@if (Model.Cart != null && Model.MenuItemOrderInputForms != null)
+{
+    <div id="CartDiv" class="SubDiv">
+        <div id="CartId">Order ID: @Model.Cart.Id</div>
+        <div class="Divider" id="CartIdMenuItemDivider"></div>
+        <div id="CartMenuItem">
+            <div id="TablePreviewMenuItemDiv">
+                @foreach (MenuItemOrderInputForm menuItemOrder in Model.MenuItemOrderInputForms)
+                {
+                    <div class="MenuItemEntry">
+                        <div id="MenuItemImage"><img src="/@(menuItemOrder.MenuItem.ImagePath ?? "favicon.ico")" alt=""/></div>
+                        <div id="MenuItemName">
+                            <p>@menuItemOrder.MenuItem.Name</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <input class="Button OkayButton Width100" type="button" value="Add Menu Item" onclick="OpenMenuItemFromSidePanel('@Model.Cart.Id')"/>
+        </div>
+        <div id="CartAdditionalDetails">
+            <div>Additional Details:</div>
+            <div class="TextBox Height100">@Model.Cart.AdditionalDetails</div>
+        </div>
+    </div>
+    <form class="Actions SubDiv" id="CompleteForm@(Model.Cart.Id)" asp-controller="Orders" asp-action="WaitstaffCompleteCart" asp-route-id="@Model.Cart.Id" method="post">
+        <a class="LinkButton Button InfoButton Width100" href="javascript:GenerateBill('@Model.Cart.Id')">Generate Bill</a>
+        <a class="LinkButton Button OkayButton Width100" href="javascript:$('#CompleteForm@(Model.Cart.Id)').submit()">Complete</a>
+    </form>
+}
+else
+{
+    <div id="CartDiv"></div>
+    <div class="Actions SubDiv Width100">
+        <a class="LinkButton Button OkayButton Width100" href="javascript:OpenCartForm('@Model.Table.Id')">Create Cart</a>
+    </div>
+}
